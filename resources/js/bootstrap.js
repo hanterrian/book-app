@@ -33,6 +33,24 @@ window.Echo = new Echo({
     wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
     cluster: 'eu',
+    encrypted: false,
     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
     enabledTransports: ['ws', 'wss'],
+    enableLogging: true
 });
+
+window.Echo.connector.pusher.connection.bind('connected', () => {
+    console.log('connected');
+});
+
+console.log('Connect to public')
+
+window.Echo.channel('public')
+    .listen('PublicEvent', (e) => console.log('PublicEvent: ' + e.message));
+
+console.log('Connect to private')
+
+let userId = document.querySelector('meta[name="userId"]').content;
+
+window.Echo.private('private.' + userId)
+    .listen('PrivateEvent', (e) => console.log('PrivateEvent: ' + e.message));
