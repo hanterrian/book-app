@@ -67,11 +67,11 @@ class UserResource extends Resource
                 EditAction::make(),
 
                 Action::make('Public notification')
-                    ->action(fn () => PublicEvent::dispatch('Test public message'))
+                    ->action(fn () => broadcast(new PublicEvent('success', 'Test public message')))
                     ->color('success'),
 
                 Action::make('Notification')
-                    ->action(fn () => PrivateEvent::dispatch('Test private message'))
+                    ->action(fn () => broadcast(new PrivateEvent('warning', 'Test private message')))
                     ->color('success'),
             ]);
     }

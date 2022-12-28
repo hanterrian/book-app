@@ -46,11 +46,11 @@ window.Echo.connector.pusher.connection.bind('connected', () => {
 console.log('Connect to public')
 
 window.Echo.channel('public')
-    .listen('PublicEvent', (e) => console.log('PublicEvent: ' + e.message));
+    .listen('PublicEvent', (e) => console.log('PublicEvent: ' + e.key + ' --- ' + e.message));
 
 console.log('Connect to private')
 
 let userId = document.querySelector('meta[name="userId"]').content;
 
 window.Echo.private('private.' + userId)
-    .listen('PrivateEvent', (e) => console.log('PrivateEvent: ' + e.message));
+    .listen('PrivateEvent', (e) => console.log('PrivateEvent: ' + e.key + ' --- ' + e.message));

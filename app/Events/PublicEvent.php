@@ -19,7 +19,7 @@ class PublicEvent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(public readonly string $message)
+    public function __construct(public readonly string $key, public readonly string $message)
     {
         //
     }
