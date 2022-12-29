@@ -13,6 +13,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 
@@ -65,6 +66,7 @@ class UserResource extends Resource
             ])
             ->actions([
                 EditAction::make(),
+                DeleteAction::make(),
 
                 Action::make('Public notification')
                     ->action(fn () => broadcast(new PublicEvent('success', 'Test public message')))
