@@ -44,6 +44,38 @@ return [
             'throw' => false,
         ],
 
+        'images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/images'),
+            'url' => env('APP_URL').'/images',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'categories' => [
+            'driver' => 'local',
+            'root' => storage_path('app/images/categories'),
+            'url' => env('APP_URL').'/images/categories',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'products' => [
+            'driver' => 'local',
+            'root' => storage_path('app/images/products'),
+            'url' => env('APP_URL').'/images/products',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'comments' => [
+            'driver' => 'local',
+            'root' => storage_path('app/images/comments'),
+            'url' => env('APP_URL').'/images/comments',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -71,6 +103,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('images') => storage_path('app/images'),
     ],
 
 ];
