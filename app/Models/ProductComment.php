@@ -18,17 +18,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $comment
  * @property string|null $attachment
  * @property int $is_active
- * @property string|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|ProductComment[] $children
  * @property-read int|null $children_count
- * @property-read ProductComment|null $parent
+ * @property-read ProductComment $parent
  * @property-read \App\Models\Product $product
  * @property-read \App\Models\User $user
  * @method static \Database\Factories\ProductCommentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductComment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductComment newQuery()
+ * @method static \Illuminate\Database\Query\Builder|ProductComment onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductComment query()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereAttachment($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereComment($value)
@@ -40,6 +41,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|ProductComment withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|ProductComment withoutTrashed()
  * @mixin \Eloquent
  */
 class ProductComment extends Model

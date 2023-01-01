@@ -29,10 +29,10 @@ use Spatie\Sluggable\SlugOptions;
  * @property int $is_subscribe
  * @property int $is_active
  * @property int $position
- * @property string|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\ProductCategory|null $category
+ * @property-read \App\Models\ProductCategory $category
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductComment[] $comments
  * @property-read int|null $comments_count
  * @property-read Product|null $group
@@ -41,6 +41,7 @@ use Spatie\Sluggable\SlugOptions;
  * @method static \Database\Factories\ProductFactory factory(...$parameters)
  * @method static Builder|Product newModelQuery()
  * @method static Builder|Product newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Product onlyTrashed()
  * @method static Builder|Product query()
  * @method static Builder|Product whereCreatedAt($value)
  * @method static Builder|Product whereDeletedAt($value)
@@ -59,6 +60,8 @@ use Spatie\Sluggable\SlugOptions;
  * @method static Builder|Product whereSlug($value)
  * @method static Builder|Product whereTitle($value)
  * @method static Builder|Product whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Product withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Product withoutTrashed()
  * @mixin Eloquent
  */
 class Product extends Model
