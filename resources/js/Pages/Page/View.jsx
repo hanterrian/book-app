@@ -1,11 +1,11 @@
 import { Link, Head } from '@inertiajs/inertia-react';
 
-export default function Welcome(props) {
+export default function Welcome({ page }) {
     return (
         <>
-            <Head title={props.page.title}/>
+            <Head title={page.title}/>
             <h1>Welcome</h1>
-            <p>Hello {user.name}, welcome to your first Inertia app!</p>
+            <p>Hello {page.title}, welcome to your first Inertia app!</p>
         </>
     )
 }
