@@ -74,21 +74,21 @@ class Product extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(ProductCategory::class);
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
     }
 
     public function group(): BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function groupItems(): HasMany
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class, 'product_id');
     }
 
     public function comments(): HasMany
     {
-        return $this->hasMany(ProductComment::class);
+        return $this->hasMany(ProductComment::class, 'product_id');
     }
 }

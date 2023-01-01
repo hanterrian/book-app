@@ -43,7 +43,11 @@ class ProductCategoryResource extends Resource
             ->schema([
                 Select::make('product_category_id')
                     ->label('Parent product')
-                    ->options(ProductCategory::all()->pluck('title', 'id')),
+                    ->options(function (?Model $record) {
+                        return ProductCategory::all()
+                            ->where('id', '<>', $record?->id)
+                            ->pluck('title', 'id');
+                    }),
 
                 TextInput::make('title')
                     ->required(),
@@ -56,11 +60,13 @@ class ProductCategoryResource extends Resource
                     ->image()
                     ->disableLabel(),
 
-                Toggle::make('is_active'),
+                Toggle::make('is_active')
+                    ->default(true),
 
                 TextInput::make('position')
                     ->required()
-                    ->integer(),
+                    ->integer()
+                    ->default(0),
             ]);
     }
 
@@ -124,6 +130,7 @@ class ProductCategoryResource extends Resource
     protected static function getGlobalSearchEloquentQuery(): Builder
     {
         return parent::getGlobalSearchEloquentQuery()
+            ->with('parent')
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);

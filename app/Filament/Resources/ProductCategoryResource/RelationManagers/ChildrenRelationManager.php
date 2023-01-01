@@ -3,13 +3,16 @@
 namespace App\Filament\Resources\ProductCategoryResource\RelationManagers;
 
 use App\Models\ProductCategory;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Support\Str;
 
 class ChildrenRelationManager extends RelationManager
@@ -22,36 +25,30 @@ class ChildrenRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                TextInput::make('product_category_id')
-                    ->integer(),
+                Select::make('product_category_id')
+                    ->label('Parent product')
+                    ->options(ProductCategory::all()->pluck('title', 'id')),
 
                 TextInput::make('title')
-                    ->required()
-                    ->reactive()
-                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                    ->required(),
 
                 TextInput::make('slug')
-                    ->disabled()
-                    ->required()
-                    ->unique(ProductCategory::class, 'slug', fn ($record) => $record),
+                    ->disabled(),
+
+                FileUpload::make('image')
+                    ->disk('categories')
+                    ->image()
+                    ->disableLabel(),
 
                 TextInput::make('is_active')
                     ->required()
-                    ->integer(),
+                    ->integer()
+                    ->default(true),
 
                 TextInput::make('position')
                     ->required()
-                    ->integer(),
-
-                TextInput::make('deleted_at'),
-
-                Placeholder::make('created_at')
-                    ->label('Created Date')
-                    ->content(fn (?ProductCategory $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-                Placeholder::make('updated_at')
-                    ->label('Last Modified Date')
-                    ->content(fn (?ProductCategory $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                    ->integer()
+                    ->default(0),
             ]);
     }
 
@@ -59,8 +56,6 @@ class ChildrenRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                TextColumn::make('product_category_id'),
-
                 TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
@@ -69,13 +64,16 @@ class ChildrenRelationManager extends RelationManager
                     ->searchable()
                     ->sortable(),
 
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                    ->disk('categories'),
 
-                TextColumn::make('is_active'),
+                ToggleColumn::make('is_active')
+                    ->searchable()
+                    ->sortable(),
 
-                TextColumn::make('position'),
-
-                TextColumn::make('deleted_at'),
+                TextColumn::make('position')
+                    ->searchable()
+                    ->sortable(),
             ]);
     }
 }

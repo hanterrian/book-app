@@ -48,21 +48,21 @@ class ProductComment extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(ProductComment::class);
+        return $this->belongsTo(ProductComment::class, 'product_comment_id');
     }
 
     public function children(): HasMany
     {
-        return $this->hasMany(ProductComment::class);
+        return $this->hasMany(ProductComment::class, 'product_comment_id');
     }
 }
