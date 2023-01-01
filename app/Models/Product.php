@@ -23,11 +23,11 @@ use Spatie\Sluggable\SlugOptions;
  * @property string|null $main_image
  * @property string|null $description
  * @property float|null $price
- * @property int $is_stockable
+ * @property bool $is_stockable
  * @property int $in_stock
- * @property int $is_group
- * @property int $is_subscribe
- * @property int $is_active
+ * @property bool $is_group
+ * @property bool $is_subscribe
+ * @property bool $is_active
  * @property int $position
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
