@@ -14,10 +14,19 @@ use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\ForceDeleteAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Actions\RestoreAction;
+use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\TrashedFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
 class ProductCategoryResource extends Resource
@@ -44,8 +53,8 @@ class ProductCategoryResource extends Resource
 
                 FileUpload::make('image')
                     ->disk('categories')
-                    ->required()
-                    ->image(),
+                    ->image()
+                    ->disableLabel(),
 
                 Toggle::make('is_active'),
 
@@ -59,7 +68,8 @@ class ProductCategoryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('product_category_id'),
+                TextColumn::make('parent.title')
+                    ->label('Parent category'),
 
                 TextColumn::make('title')
                     ->searchable()
@@ -69,13 +79,29 @@ class ProductCategoryResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                    ->disk('categories'),
 
-                TextColumn::make('is_active'),
+                ToggleColumn::make('is_active')
+                    ->searchable()
+                    ->sortable(),
 
-                TextColumn::make('position'),
-
-                TextColumn::make('deleted_at'),
+                TextColumn::make('position')
+                    ->searchable()
+                    ->sortable(),
+            ])
+            ->filters([
+                TrashedFilter::make(),
+            ])
+            ->actions([
+                DeleteAction::make(),
+                ForceDeleteAction::make(),
+                RestoreAction::make(),
+            ])
+            ->bulkActions([
+                DeleteBulkAction::make(),
+                ForceDeleteBulkAction::make(),
+                RestoreBulkAction::make(),
             ]);
     }
 
@@ -97,21 +123,20 @@ class ProductCategoryResource extends Resource
 
     protected static function getGlobalSearchEloquentQuery(): Builder
     {
-        return parent::getGlobalSearchEloquentQuery()->with(['parent']);
+        return parent::getGlobalSearchEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['title', 'slug', 'parent.title'];
+        return ['title', 'slug'];
     }
 
     public static function getGlobalSearchResultDetails(Model $record): array
     {
         $details = [];
-
-        if ($record->parent) {
-            $details['Parent'] = $record->parent->title;
-        }
 
         return $details;
     }

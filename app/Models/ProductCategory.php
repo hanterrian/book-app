@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -45,7 +46,26 @@ use Spatie\Sluggable\SlugOptions;
  */
 class ProductCategory extends Model
 {
-    use HasFactory, HasSlug;
+    use HasFactory, SoftDeletes, HasSlug;
+
+    protected $fillable = [
+        'product_category_id',
+        'title',
+        'slug',
+        'image',
+        'is_active',
+        'position',
+    ];
+
+    protected $casts = [
+        'is_active' => 'bool',
+        'position' => 'int',
+    ];
+
+    protected $attributes = [
+        'is_active' => true,
+        'position' => 0,
+    ];
 
     public function getSlugOptions(): SlugOptions
     {
