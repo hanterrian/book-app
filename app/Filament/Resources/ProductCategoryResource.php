@@ -5,9 +5,12 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProductCategoryResource\Pages;
 use App\Filament\Resources\ProductCategoryResource\RelationManagers\ChildrenRelationManager;
 use App\Models\ProductCategory;
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\MorphToSelect;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -41,33 +44,46 @@ class ProductCategoryResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('product_category_id')
-                    ->label('Parent product')
-                    ->options(function (?Model $record) {
-                        return ProductCategory::all()
-                            ->where('id', '<>', $record?->id)
-                            ->pluck('title', 'id');
-                    }),
+                Group::make()
+                    ->schema([
+                        Card::make()
+                            ->schema([
+                                Select::make('product_category_id')
+                                    ->label('Parent category')
+                                    ->options(function (?Model $record) {
+                                        return ProductCategory::all()
+                                            ->where('id', '<>', $record?->id)
+                                            ->where('product_category_id', '=', null)
+                                            ->pluck('title', 'id');
+                                    }),
 
-                TextInput::make('title')
-                    ->required(),
+                                TextInput::make('title')
+                                    ->required(),
 
-                TextInput::make('slug')
-                    ->disabled(),
+                                TextInput::make('slug')
+                                    ->disabled(),
+                            ]),
+                    ])
+                    ->columnSpan(['lg' => 2]),
 
-                FileUpload::make('image')
-                    ->disk('categories')
-                    ->image()
-                    ->disableLabel(),
+                Section::make('Settings')
+                    ->schema([
+                        FileUpload::make('image')
+                            ->disk('categories')
+                            ->image()
+                            ->disableLabel(),
 
-                Toggle::make('is_active')
-                    ->default(true),
+                        Toggle::make('is_active')
+                            ->default(true),
 
-                TextInput::make('position')
-                    ->required()
-                    ->integer()
-                    ->default(0),
-            ]);
+                        TextInput::make('position')
+                            ->required()
+                            ->integer()
+                            ->default(0),
+                    ])
+                    ->columnSpan(['lg' => 1]),
+            ])
+            ->columns(3);
     }
 
     public static function table(Table $table): Table

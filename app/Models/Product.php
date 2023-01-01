@@ -68,6 +68,38 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes, HasSlug;
 
+    protected $fillable = [
+        'product_category_id',
+        'product_id',
+        'title',
+        'slug',
+        'main_image',
+        'description',
+        'price',
+        'is_stockable',
+        'in_stock',
+        'is_group',
+        'is_subscribe',
+        'is_active',
+        'position',
+    ];
+
+    protected $casts = [
+        'is_stockable' => 'bool',
+        'is_group' => 'bool',
+        'is_subscribe' => 'bool',
+        'is_active' => 'bool',
+        'position' => 'int',
+    ];
+
+    protected $attributes = [
+        'is_stockable' => true,
+        'is_group' => false,
+        'is_subscribe' => false,
+        'is_active' => true,
+        'position' => 0,
+    ];
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

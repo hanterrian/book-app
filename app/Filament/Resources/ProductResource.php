@@ -6,13 +6,22 @@ use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers\CommentsRelationManager;
 use App\Filament\Resources\ProductResource\RelationManagers\GroupItemsRelationManager;
 use App\Models\Product;
+use App\Models\ProductCategory;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -29,71 +38,91 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('product_category_id')
-                    ->required()
-                    ->integer(),
+                Group::make()
+                    ->schema([
+                        Card::make()
+                            ->schema([
+                                Select::make('product_category_id')
+                                    ->required()
+                                    ->label('Category')
+                                    ->options(function () {
+                                        return ProductCategory::all()
+                                            ->pluck('title', 'id');
+                                    }),
 
-                TextInput::make('product_id')
-                    ->integer(),
+                                Select::make('product_id')
+                                    ->label('Group')
+                                    ->options(function (?Model $record) {
+                                        return Product::all()
+                                            ->where('id', '<>', $record?->id)
+                                            ->where('is_group', '=', true)
+                                            ->pluck('title', 'id');
+                                    }),
 
-                TextInput::make('title')
-                    ->required()
-                    ->reactive()
-                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
+                                TextInput::make('title')
+                                    ->required(),
 
-                TextInput::make('slug')
-                    ->disabled()
-                    ->required()
-                    ->unique(Product::class, 'slug', fn ($record) => $record),
+                                TextInput::make('slug')
+                                    ->disabled(),
 
-                TextInput::make('description'),
+                                RichEditor::make('description')
+                                    ->fileAttachmentsDisk('public')
+                                    ->fileAttachmentsDirectory('attachments')
+                                    ->fileAttachmentsVisibility('private'),
+                            ]),
+                    ])
+                    ->columnSpan(['lg' => 2]),
 
-                TextInput::make('price')
-                    ->numeric(),
+                Section::make('Settings')
+                    ->schema([
+                        FileUpload::make('main_image')
+                            ->disk('products')
+                            ->image()
+                            ->disableLabel(),
 
-                TextInput::make('is_stockable')
-                    ->required()
-                    ->integer(),
+                        TextInput::make('price')
+                            ->numeric()
+                            ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
+                            ->required()
+                            ->minValue(0)
+                            ->maxValue(999999.99),
 
-                TextInput::make('in_stock')
-                    ->required()
-                    ->integer(),
+                        Toggle::make('is_stockable')
+                            ->default(true),
 
-                TextInput::make('is_group')
-                    ->required()
-                    ->integer(),
+                        TextInput::make('in_stock')
+                            ->required()
+                            ->integer()
+                            ->default(0),
 
-                TextInput::make('is_subscribe')
-                    ->required()
-                    ->integer(),
+                        Toggle::make('is_group')
+                            ->default(false),
 
-                TextInput::make('is_active')
-                    ->required()
-                    ->integer(),
+                        Toggle::make('is_subscribe')
+                            ->default(false),
 
-                TextInput::make('position')
-                    ->required()
-                    ->integer(),
+                        Toggle::make('is_active')
+                            ->default(true),
 
-                TextInput::make('deleted_at'),
-
-                Placeholder::make('created_at')
-                    ->label('Created Date')
-                    ->content(fn (?Product $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-                Placeholder::make('updated_at')
-                    ->label('Last Modified Date')
-                    ->content(fn (?Product $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
-            ]);
+                        TextInput::make('position')
+                            ->required()
+                            ->integer()
+                            ->default(0),
+                    ])
+                    ->columnSpan(['lg' => 1]),
+            ])
+            ->columns(3);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('product_category_id'),
+                TextColumn::make('category.title')
+                    ->label('Category'),
 
-                TextColumn::make('product_id'),
+                TextColumn::make('group.title')
+                    ->label('Group'),
 
                 TextColumn::make('title')
                     ->searchable()
@@ -103,25 +132,18 @@ class ProductResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                ImageColumn::make('main_image'),
-
-                TextColumn::make('description'),
+                ImageColumn::make('main_image')
+                    ->disk('products'),
 
                 TextColumn::make('price'),
 
-                TextColumn::make('is_stockable'),
+                ToggleColumn::make('is_active')
+                    ->searchable()
+                    ->sortable(),
 
-                TextColumn::make('in_stock'),
-
-                TextColumn::make('is_group'),
-
-                TextColumn::make('is_subscribe'),
-
-                TextColumn::make('is_active'),
-
-                TextColumn::make('position'),
-
-                TextColumn::make('deleted_at'),
+                TextColumn::make('position')
+                    ->searchable()
+                    ->sortable(),
             ]);
     }
 
