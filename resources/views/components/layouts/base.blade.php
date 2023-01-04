@@ -16,7 +16,11 @@
         @bukStyles
     </x-slot>
 
+    <x-layouts.navigation/>
+
     {{ $slot }}
+
+    <x-layouts.footer/>
 
     @livewireScripts
     @bukScripts
