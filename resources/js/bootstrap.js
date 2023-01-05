@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+import 'tw-elements';
+
 window._ = _;
 
 /**
