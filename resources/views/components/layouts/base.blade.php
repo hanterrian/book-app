@@ -1,6 +1,6 @@
 <x-html
     :title="isset($title) ? $title.' | '.config('app.name'):''"
-    class="bg-white h-screen antialiased leading-none"
+    class="container"
 >
     <x-slot name="head">
         <x-social-meta
@@ -13,7 +13,7 @@
         @vite(['resources/js/app.js'])
 
         @livewireStyles
-        @bukStyles
+        @bukStyles(true)
     </x-slot>
 
     <x-layouts.navigation/>
@@ -23,5 +23,5 @@
     <x-layouts.footer/>
 
     @livewireScripts
-    @bukScripts
+    @bukScripts(true)
 </x-html>
