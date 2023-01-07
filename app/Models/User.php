@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -38,7 +39,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasAvatar
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -75,5 +76,14 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessFilament(): bool
     {
         return $this->email == 'admin@localhost.loc';
+    }
+
+    public function getFilamentAvatarUrl(?int $size = null): ?string
+    {
+        $address = strtolower(trim($this->email));
+
+        $hash = md5($address);
+
+        return "https://www.gravatar.com/avatar/{$hash}?d=identicon".($size == null ? '' : "&s={$size}");
     }
 }

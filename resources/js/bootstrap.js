@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+import * as bootstrap from 'bootstrap';
+
 window._ = _;
 
 /**
@@ -48,9 +50,11 @@ console.log('Connect to public')
 window.Echo.channel('public')
     .listen('PublicEvent', (e) => console.log('PublicEvent: ' + e.key + ' --- ' + e.message));
 
-console.log('Connect to private')
-
 let userId = document.querySelector('meta[name="userId"]').content;
 
-window.Echo.private('private.' + userId)
-    .listen('PrivateEvent', (e) => console.log('PrivateEvent: ' + e.key + ' --- ' + e.message));
+if (userId) {
+    console.log('Connect to private')
+
+    window.Echo.private('private.' + userId)
+        .listen('PrivateEvent', (e) => console.log('PrivateEvent: ' + e.key + ' --- ' + e.message));
+}
