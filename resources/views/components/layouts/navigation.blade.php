@@ -6,9 +6,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarAppContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                @foreach($items as $item)
+                @foreach($items as $url=>$label)
                     <li class="nav-item">
-                        <a class="{{ $item['active'] ? 'nav-link active' : 'nav-link' }}" aria-current="page" href="{{ $item['url'] }}">{{ $item['label'] }}</a>
+                        <a class="{{ checkUrl($url) ? 'nav-link active' : 'nav-link' }}" aria-current="page" href="{{ $url }}">{{ $label }}</a>
                     </li>
                 @endforeach
             </ul>

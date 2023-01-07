@@ -20,24 +20,8 @@ class Navigation extends Component
 
     public function render(): View
     {
-        $items = [];
-
-        foreach ($this->items as $route => $label) {
-            $active = false;
-
-            if (url()->full() == $route) {
-                $active = true;
-            }
-
-            $items[$route] = [
-                'label' => $label,
-                'url' => $route,
-                'active' => $active,
-            ];
-        }
-
         return view('components.layouts.navigation', [
-            'items' => $items,
+            'items' => $this->items,
         ]);
     }
 }
