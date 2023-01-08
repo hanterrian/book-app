@@ -8,9 +8,7 @@
             <hr class="dropdown-divider">
         </li>
         <li>
-            <x-form-button :action="route('auth.logout')" class="dropdown-item">
-                Sign out
-            </x-form-button>
+            <a href="#" class="dropdown-item">Sign out</a>
         </li>
     </ul>
 </div>

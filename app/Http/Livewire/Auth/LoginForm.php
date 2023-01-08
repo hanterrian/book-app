@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Auth;
 
 use App\Mail\LoginVerificationCodeMail;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -24,17 +26,18 @@ class LoginForm extends Component
         $this->validate([
             'email' => ['required', 'email', 'max:255'],
             'password' => ['required', 'string', 'max:255'],
-            'rememberMe' => ['accepted'],
+            'rememberMe' => ['bool'],
         ]);
 
         /** @var User $user */
         $user = User::where([
             'email' => $this->email,
-            'password' => Hash::make($this->password),
         ])->first();
 
         if (!$user) {
             $this->addError('email', __('Invalid credential'));
+        } elseif (!Auth::validate(['email' => $this->email, 'password' => $this->password])) {
+            $this->addError('password', __('Invalid password'));
         } else {
             $validateCode = Str::random(6);
 
@@ -46,11 +49,24 @@ class LoginForm extends Component
         }
     }
 
+    /**
+     * @return \Closure|RedirectResponse|mixed|object|void|null
+     */
     public function checkForm()
     {
         $this->validate([
             'validateCode' => ['required', 'string', 'max:6'],
         ]);
+
+        $user = User::whereValidateCode($this->validateCode)->first();
+
+        if (!$user) {
+            $this->addError('validateCode', __('Invalid validate code'));
+        } else {
+            Auth::login($user);
+
+            return redirect()->route('home');
+        }
     }
 
     public function render()
@@ -62,9 +78,6 @@ class LoginForm extends Component
                 break;
             case 2:
                 return view('livewire.auth.login.verify-form');
-                break;
-            case 3:
-                return view('livewire.auth.login.success');
                 break;
         }
     }
