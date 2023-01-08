@@ -20,6 +20,11 @@
 
     {{ $slot }}
 
+    @if(auth()->guest())
+        <x-auth.login-form/>
+        <x-auth.register-form/>
+    @endif
+
     <x-layouts.footer/>
 
     @livewireScripts

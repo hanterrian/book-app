@@ -1,8 +1,13 @@
 import _ from 'lodash';
-
 import * as bootstrap from 'bootstrap';
 
 window._ = _;
+
+window.bootstrap = bootstrap;
+
+const userId = document.querySelector('meta[name="userId"]').content;
+
+window.userId = userId;
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -49,8 +54,6 @@ console.log('Connect to public')
 
 window.Echo.channel('public')
     .listen('PublicEvent', (e) => console.log('PublicEvent: ' + e.key + ' --- ' + e.message));
-
-let userId = document.querySelector('meta[name="userId"]').content;
 
 if (userId) {
     console.log('Connect to private')
