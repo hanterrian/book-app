@@ -87,7 +87,11 @@ class PageResource extends Resource
                                             ->schema([
                                                 FileUpload::make('url')
                                                     ->disk('public')
-                                                    ->directory('builder')
+                                                    ->directory(function (?Model $record) {
+                                                        $sub = (int) floor($record->id / 1000);
+
+                                                        return "builder/{$sub}";
+                                                    })
                                                     ->visibility('private')
                                                     ->label('Image')
                                                     ->image(),

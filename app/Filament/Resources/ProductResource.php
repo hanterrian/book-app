@@ -85,6 +85,9 @@ class ProductResource extends Resource
                     ->schema([
                         FileUpload::make('main_image')
                             ->disk('products')
+                            ->directory(function (?Model $record) {
+                                return (int) floor($record->id / 1000);
+                            })
                             ->image()
                             ->disableLabel(),
 

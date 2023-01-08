@@ -8,8 +8,6 @@ use App\Models\ProductCategory;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
-use Filament\Forms\Components\MorphToSelect;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -30,7 +28,6 @@ use Filament\Tables\Filters\TrashedFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Str;
 
 class ProductCategoryResource extends Resource
 {
@@ -70,6 +67,9 @@ class ProductCategoryResource extends Resource
                     ->schema([
                         FileUpload::make('image')
                             ->disk('categories')
+                            ->directory(function (?Model $record) {
+                                return (int) floor($record->id / 1000);
+                            })
                             ->image()
                             ->disableLabel(),
 
