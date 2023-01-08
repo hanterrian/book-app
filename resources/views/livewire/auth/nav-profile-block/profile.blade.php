@@ -8,7 +8,7 @@
             <hr class="dropdown-divider">
         </li>
         <li>
-            <a href="#" class="dropdown-item">Sign out</a>
+            <a href="#" wire:click.prevent="logoutUser" class="dropdown-item">Sign out</a>
         </li>
     </ul>
 </div>

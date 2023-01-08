@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Auth;
 
+use Illuminate\Http\RedirectResponse;
 use Livewire\Component;
+use Livewire\Redirector;
 
 class NavProfileBlock extends Component
 {
@@ -12,6 +14,16 @@ class NavProfileBlock extends Component
 
     public function loginUser()
     {
+    }
+
+    /**
+     * @return RedirectResponse|Redirector
+     */
+    public function logoutUser()
+    {
+        auth()->logout();
+
+        return redirect()->route('home');
     }
 
     public function render()

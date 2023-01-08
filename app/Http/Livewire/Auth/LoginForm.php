@@ -50,7 +50,7 @@ class LoginForm extends Component
     }
 
     /**
-     * @return \Closure|RedirectResponse|mixed|object|void|null
+     * @return RedirectResponse|void
      */
     public function checkForm()
     {
