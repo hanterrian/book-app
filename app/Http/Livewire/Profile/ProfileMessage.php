@@ -9,6 +9,8 @@ class ProfileMessage extends Component
     public function render()
     {
         return view('livewire.profile.profile-message')
-            ->layout('profile.view');
+            ->layout('profile.view', [
+                'title' => 'Message',
+            ]);
     }
 }

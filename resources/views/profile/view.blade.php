@@ -1,3 +1,3 @@
-<x-layouts.app title="Profile page">
+<x-layouts.app title="{{ isset($title) ? 'Profile '.$title : 'Profile Dashboard' }}">
     {{ $slot }}
 </x-layouts.app>
