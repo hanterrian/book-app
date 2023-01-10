@@ -3,7 +3,9 @@
         <img src="{{ $user->getFilamentAvatarUrl(32) }}" alt="mdo" width="32" height="32" class="rounded-circle">
     </a>
     <ul class="dropdown-menu text-small">
-        <li><a class="dropdown-item" href="{{ route('profile.view') }}">Profile</a></li>
+        <li><a class="dropdown-item {{ checkUrl(route('profile.view'))?'active':'' }}" href="{{ route('profile.view') }}">Dashboard</a></li>
+        <li><a class="dropdown-item {{ checkUrl(route('profile.settings'))?'active':'' }}" href="{{ route('profile.settings') }}">Settings</a></li>
+        <li><a class="dropdown-item {{ checkUrl(route('profile.message'))?'active':'' }}" href="{{ route('profile.message') }}">Messages</a></li>
         <li>
             <hr class="dropdown-divider">
         </li>
