@@ -90,7 +90,7 @@ class PageResource extends Resource
                                                     ->directory(function (?Model $record) {
                                                         $sub = (int) floor($record->id / 1000);
 
-                                                        return "builder/{$sub}";
+                                                        return "builder".DIRECTORY_SEPARATOR."{$sub}";
                                                     })
                                                     ->visibility('private')
                                                     ->label('Image')
