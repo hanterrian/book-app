@@ -8,6 +8,7 @@ use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -23,6 +24,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $avatar_src
  * @property string|null $validate_code
+ * @property-read mixed $avatar
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
@@ -84,12 +86,21 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         return $this->email == 'admin@localhost.loc';
     }
 
-    public function getFilamentAvatarUrl(?int $size = null): ?string
+    public function getFilamentAvatarUrl(): ?string
     {
+        return $this->avatar;
+    }
+
+    public function getAvatarAttribute(): string
+    {
+        if ($this->avatar_src) {
+            return Storage::disk('avatars')->url($this->avatar_src);
+        }
+
         $address = strtolower(trim($this->email));
 
         $hash = md5($address);
 
-        return "https://www.gravatar.com/avatar/{$hash}?d=identicon".($size == null ? '' : "&s={$size}");
+        return "https://www.gravatar.com/avatar/{$hash}?d=identicon&s=32";
     }
 }

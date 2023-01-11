@@ -1,6 +1,6 @@
 <div class="dropdown text-end">
     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="{{ $user->getFilamentAvatarUrl(32) }}" alt="mdo" width="32" height="32" class="rounded-circle">
+        <img src="{{ $user->avatar }}" alt="mdo" width="32" height="32" class="rounded-circle">
     </a>
     <ul class="dropdown-menu text-small">
         <li><a class="dropdown-item {{ checkUrl(route('profile.view'))?'active':'' }}" href="{{ route('profile.view') }}">Dashboard</a></li>

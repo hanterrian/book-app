@@ -1,6 +1,6 @@
 <x-layouts.app title="{{ isset($title) ? 'Profile '.$title : 'Profile Dashboard' }}">
-    <main class="d-flex flex-nowrap">
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light">
+    <main class="row">
+        <div class="col-3">
             <ul class="nav nav-pills flex-column mb-auto">
                 <li>
                     <a href="{{ route('profile.view') }}" class="nav-link {{ checkUrl(route('profile.view'))?'active':' link-dark' }}">
@@ -19,7 +19,7 @@
                 </li>
             </ul>
         </div>
-        <div class="d-flex">
+        <div class="col-9">
             {{ $slot }}
         </div>
     </main>

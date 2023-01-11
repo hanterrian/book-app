@@ -11,8 +11,8 @@ if (!function_exists('subFolder')) {
     function subFolder(int $id, ?string $file = null): string
     {
         $subFolder = $id / 1000;
-        $subFolder = floor($subFolder);
+        $subFolder = (int) floor($subFolder);
 
-        return implode("/", array_filter([$subFolder, $file]));
+        return is_null($file) ? $subFolder : "{$subFolder}/{$file}";
     }
 }
