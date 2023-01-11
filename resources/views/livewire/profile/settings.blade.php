@@ -1,3 +1,3 @@
-<div>
-2222
-</div>
+<fieldset>
+    <legend>{{ __('Main') }}</legend>
+</fieldset>

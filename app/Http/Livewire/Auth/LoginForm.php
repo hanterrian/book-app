@@ -63,7 +63,9 @@ class LoginForm extends Component
         if (!$user) {
             $this->addError('validateCode', __('Invalid validate code'));
         } else {
-            Auth::login($user);
+            Auth::login($user, $this->rememberMe);
+
+            $user->update(['validate_code' => null]);
 
             return redirect()->route('home');
         }
