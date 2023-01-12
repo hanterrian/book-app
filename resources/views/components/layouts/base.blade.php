@@ -14,6 +14,8 @@
 
         @livewireStyles
         @bukStyles(true)
+
+        @wireUiScripts
     </x-slot>
 
     <x-layouts.navigation/>
