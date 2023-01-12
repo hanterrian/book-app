@@ -4,7 +4,10 @@ namespace App\Http\Livewire\Profile;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -18,7 +21,6 @@ class ProfileSettings extends Component
     /** @var TemporaryUploadedFile */
     public $avatar;
 
-    public $old_password;
     public $new_password;
     public $new_password_confirmation;
 
@@ -59,6 +61,19 @@ class ProfileSettings extends Component
 
     public function changePassword()
     {
+        $this->validate([
+            'new_password' => ['required', 'string', 'max:255', 'confirmed'],
+            'new_password_confirmation' => ['required', 'string', 'max:255'],
+        ]);
+
+        $this->user->forceFill(['password' => Hash::make($this->new_password)])
+            ->setRememberToken(Str::random(60));
+
+        $this->user->save();
+
+        Auth::logout();
+
+        return $this->redirectRoute('home');
     }
 
     public function render()
