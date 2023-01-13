@@ -18,7 +18,8 @@ return new class extends Migration {
             $table->string('title');
             $table->string('slug');
 
-            $table->json('content');
+            $table->string('layout')->default('default')->index();
+            $table->json('blocks');
 
             $table->boolean('is_active')->default(true);
 

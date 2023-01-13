@@ -43,12 +43,13 @@ class Page extends Model
     protected $fillable = [
         'title',
         'slug',
-        'content',
+        'blocks',
+        'layout',
         'is_active',
     ];
 
     protected $casts = [
-        'content' => 'array',
+        'blocks' => 'array',
         'is_active' => 'bool',
     ];
 

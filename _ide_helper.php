@@ -19239,6 +19239,226 @@
      
 }
 
+    namespace Z3d0X\FilamentFabricator\Facades { 
+            /**
+     * 
+     *
+     * @method static array | \Closure getSchemaSlot(string $name)
+     * @method static ?string getFavicon()
+     * @method static class-string<PageContract> getPageModel()
+     * @method static ?string getPageUrlFromId(int $id, bool $prefixSlash = false)
+     * @see \Z3d0X\FilamentFabricator\FilamentFabricatorManager
+     */ 
+        class FilamentFabricator {
+                    /**
+         * 
+         *
+         * @param \Z3d0X\FilamentFabricator\class-string $class @param  class-string  $baseClass
+         * @static 
+         */ 
+        public static function register($class, $baseClass)
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->register($class, $baseClass);
+        }
+                    /**
+         * 
+         *
+         * @param \Z3d0X\FilamentFabricator\class-string $layout
+         * @static 
+         */ 
+        public static function registerLayout($layout)
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->registerLayout($layout);
+        }
+                    /**
+         * 
+         *
+         * @param \Z3d0X\FilamentFabricator\class-string $pageBlock
+         * @static 
+         */ 
+        public static function registerPageBlock($pageBlock)
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->registerPageBlock($pageBlock);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function registerSchemaSlot($name, $schema)
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->registerSchemaSlot($name, $schema);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function pushMeta($meta)
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->pushMeta($meta);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function registerScripts($scripts)
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->registerScripts($scripts);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function registerStyles($styles)
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->registerStyles($styles);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function favicon($favicon)
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->favicon($favicon);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getLayoutFromName($layoutName)
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->getLayoutFromName($layoutName);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getPageBlockFromName($name)
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->getPageBlockFromName($name);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getLayouts()
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->getLayouts();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getPageBlocks()
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->getPageBlocks();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getSchemaSlot($name)
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->getSchemaSlot($name);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getMeta()
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->getMeta();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getScripts()
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->getScripts();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getStyles()
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->getStyles();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getFavicon()
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->getFavicon();
+        }
+                    /**
+         * 
+         *
+         * @return \Z3d0X\FilamentFabricator\class-string<PageContract> 
+         * @static 
+         */ 
+        public static function getPageModel()
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->getPageModel();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getPageUrls()
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->getPageUrls();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getPageUrlFromId($id, $prefixSlash = false)
+        {
+                        /** @var \Z3d0X\FilamentFabricator\FilamentFabricatorManager $instance */
+                        return $instance->getPageUrlFromId($id, $prefixSlash);
+        }
+         
+    }
+     
+}
+
     namespace WireUi\Facades { 
             /**
      * 
@@ -24831,6 +25051,7 @@ namespace  {
             class Health extends \Spatie\Health\Facades\Health {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
             class Signal extends \Spatie\SignalAwareCommand\Facades\Signal {}
+            class FilamentFabricator extends \Z3d0X\FilamentFabricator\Facades\FilamentFabricator {}
             class WireUi extends \WireUi\Facades\WireUi {}
      
 }

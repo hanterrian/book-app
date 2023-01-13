@@ -3,18 +3,17 @@
 namespace App\Filament\Resources\PageResource\Pages;
 
 use Filament\Pages\Actions;
-use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ViewRecord;
 use App\Filament\Resources\PageResource;
 
-class EditPage extends EditRecord
+class ViewPage extends ViewRecord
 {
     protected static string $resource = PageResource::class;
 
     protected function getActions(): array
     {
         return [
-            Actions\ViewAction::make(),
-            Actions\DeleteAction::make(),
+            Actions\EditAction::make(),
         ];
     }
 }

@@ -31,6 +31,7 @@
         "spatie/laravel-sluggable": "^3.4",
         "tightenco/ziggy": "^1.0",
         "wireui/wireui": "^1.17",
+        "z3d0x/filament-fabricator": "^1.0",
         "z3d0x/filament-logger": "^0.4.2"
     },
     "require-dev": {
