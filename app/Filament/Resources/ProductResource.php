@@ -29,6 +29,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\TrashedFilter;
+use FilamentCurator\Forms\Components\MediaPicker;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -84,19 +85,8 @@ class ProductResource extends Resource
 
                 Section::make('Settings')
                     ->schema([
-                        FileUpload::make('main_image')
+                        MediaPicker::make('main_image')
                             ->disk('products')
-                            ->directory(function (?Model $record) {
-                                $id = $record == null ? getNextId(Product::class) : $record->id;
-
-                                return (int) floor($id / 1000);
-                            })
-                            ->getUploadedFileNameForStorageUsing(function (?Model $record, TemporaryUploadedFile $file): string {
-                                $id = $record == null ? getNextId(Product::class) : $record->id;
-
-                                return 'product-'.$id.'.'.$file->getClientOriginalExtension();
-                            })
-                            ->image()
                             ->disableLabel(),
 
                         TextInput::make('price')

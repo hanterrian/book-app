@@ -27,6 +27,7 @@ use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\TrashedFilter;
+use FilamentCurator\Forms\Components\MediaPicker;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
@@ -86,23 +87,8 @@ class PageResource extends Resource
                                             ]),
                                         Builder\Block::make('image')
                                             ->schema([
-                                                FileUpload::make('url')
-                                                    ->disk('public')
-                                                    ->directory(function (?Model $record) {
-                                                        $id = $record == null ? getNextId(Page::class) : $record->id;
-
-                                                        $sub = (int) floor($id / 1000);
-
-                                                        return "builder".DIRECTORY_SEPARATOR."{$sub}";
-                                                    })
-                                                    ->getUploadedFileNameForStorageUsing(function (?Model $record, TemporaryUploadedFile $file): string {
-                                                        $id = $record == null ? getNextId(Page::class) : $record->id;
-
-                                                        return 'block-'.$id.'.'.$file->getClientOriginalExtension();
-                                                    })
-                                                    ->visibility('private')
-                                                    ->label('Image')
-                                                    ->image(),
+                                                MediaPicker::make('url')
+                                                    ->disableLabel(),
 
                                                 TextInput::make('alt')
                                                     ->label('Alt text')

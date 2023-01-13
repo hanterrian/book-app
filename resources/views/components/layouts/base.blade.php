@@ -15,7 +15,7 @@
         @livewireStyles
         @bukStyles(true)
 
-        @wireUiScripts
+        <wireui:scripts />
     </x-slot>
 
     <x-layouts.navigation/>

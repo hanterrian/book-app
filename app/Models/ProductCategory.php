@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -17,7 +18,7 @@ use Spatie\Sluggable\SlugOptions;
  * @property int|null $product_category_id
  * @property string $title
  * @property string $slug
- * @property string|null $image
+ * @property \App\Models\Media|null $image
  * @property bool $is_active
  * @property int $position
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -75,6 +76,11 @@ class ProductCategory extends Model
         return SlugOptions::create()
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
+    }
+
+    public function image(): HasOne
+    {
+        return $this->hasOne(Media::class, 'id', 'image');
     }
 
     public function parent(): BelongsTo

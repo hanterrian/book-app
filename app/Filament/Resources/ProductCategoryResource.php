@@ -25,6 +25,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\TrashedFilter;
+use FilamentCurator\Forms\Components\MediaPicker;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -66,19 +67,8 @@ class ProductCategoryResource extends Resource
 
                 Section::make('Settings')
                     ->schema([
-                        FileUpload::make('image')
+                        MediaPicker::make('image')
                             ->disk('categories')
-                            ->directory(function (?Model $record) {
-                                $id = $record == null ? getNextId(ProductCategory::class) : $record->id;
-
-                                return (int) floor($id / 1000);
-                            })
-                            ->getUploadedFileNameForStorageUsing(function (?Model $record, TemporaryUploadedFile $file): string {
-                                $id = $record == null ? getNextId(ProductCategory::class) : $record->id;
-
-                                return 'category-'.$id.'.'.$file->getClientOriginalExtension();
-                            })
-                            ->image()
                             ->disableLabel(),
 
                         Toggle::make('is_active')
