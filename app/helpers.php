@@ -16,3 +16,15 @@ if (!function_exists('subFolder')) {
         return is_null($file) ? $subFolder : "{$subFolder}/{$file}";
     }
 }
+
+
+if (!function_exists('getNextId')) {
+    function getNextId(string $model): ?int
+    {
+        /** @var \Illuminate\Database\Eloquent\Model $model */
+        $model = new $model();
+
+        $statement = DB::select("SHOW TABLE STATUS LIKE '{$model->getTable()}'");
+        return $statement[0]?->Auto_increment;
+    }
+}

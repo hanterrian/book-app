@@ -30,6 +30,7 @@ use Filament\Tables\Filters\TrashedFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Livewire\TemporaryUploadedFile;
 
 class PageResource extends Resource
 {
@@ -88,9 +89,16 @@ class PageResource extends Resource
                                                 FileUpload::make('url')
                                                     ->disk('public')
                                                     ->directory(function (?Model $record) {
-                                                        $sub = (int) floor($record->id / 1000);
+                                                        $id = $record == null ? getNextId(Page::class) : $record->id;
+
+                                                        $sub = (int) floor($id / 1000);
 
                                                         return "builder".DIRECTORY_SEPARATOR."{$sub}";
+                                                    })
+                                                    ->getUploadedFileNameForStorageUsing(function (?Model $record, TemporaryUploadedFile $file): string {
+                                                        $id = $record == null ? getNextId(Page::class) : $record->id;
+
+                                                        return 'block-'.$id.'.'.$file->getClientOriginalExtension();
                                                     })
                                                     ->visibility('private')
                                                     ->label('Image')

@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Livewire\TemporaryUploadedFile;
 
 class ProductResource extends Resource
 {
@@ -86,7 +87,14 @@ class ProductResource extends Resource
                         FileUpload::make('main_image')
                             ->disk('products')
                             ->directory(function (?Model $record) {
-                                return (int) floor($record->id / 1000);
+                                $id = $record == null ? getNextId(Product::class) : $record->id;
+
+                                return (int) floor($id / 1000);
+                            })
+                            ->getUploadedFileNameForStorageUsing(function (?Model $record, TemporaryUploadedFile $file): string {
+                                $id = $record == null ? getNextId(Product::class) : $record->id;
+
+                                return 'product-'.$id.'.'.$file->getClientOriginalExtension();
                             })
                             ->image()
                             ->disableLabel(),

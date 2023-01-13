@@ -12,6 +12,16 @@ class EditProductCategory extends EditRecord
 {
     protected static string $resource = ProductCategoryResource::class;
 
+    public function afterSave()
+    {
+
+    }
+
+    public function afterDelete()
+    {
+
+    }
+
     protected function getActions(): array
     {
         return [
