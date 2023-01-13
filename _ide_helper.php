@@ -18734,6 +18734,81 @@
      
 }
 
+    namespace Spatie\Health\Facades { 
+            /**
+     * 
+     *
+     * @mixin \Spatie\Health\Health
+     */ 
+        class Health {
+                    /**
+         * 
+         *
+         * @param \Spatie\Health\array<int,  Check>  $checks
+         * @static 
+         */ 
+        public static function checks($checks)
+        {
+                        /** @var \Spatie\Health\Health $instance */
+                        return $instance->checks($checks);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function clearChecks()
+        {
+                        /** @var \Spatie\Health\Health $instance */
+                        return $instance->clearChecks();
+        }
+                    /**
+         * 
+         *
+         * @return \Spatie\Health\Collection<int, Check> 
+         * @static 
+         */ 
+        public static function registeredChecks()
+        {
+                        /** @var \Spatie\Health\Health $instance */
+                        return $instance->registeredChecks();
+        }
+                    /**
+         * 
+         *
+         * @return \Spatie\Health\Collection<int, ResultStore> 
+         * @static 
+         */ 
+        public static function resultStores()
+        {
+                        /** @var \Spatie\Health\Health $instance */
+                        return $instance->resultStores();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function inlineStylesheet($stylesheet)
+        {
+                        /** @var \Spatie\Health\Health $instance */
+                        return $instance->inlineStylesheet($stylesheet);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function assets()
+        {
+                        /** @var \Spatie\Health\Health $instance */
+                        return $instance->assets();
+        }
+         
+    }
+     
+}
+
     namespace Spatie\LaravelIgnition\Facades { 
             /**
      * 
@@ -19116,6 +19191,48 @@
         {
                         /** @var \Spatie\FlareClient\Flare $instance */
                         return $instance->group($groupName, $properties);
+        }
+         
+    }
+     
+}
+
+    namespace Spatie\SignalAwareCommand\Facades { 
+            /**
+     * 
+     *
+     * @see \Spatie\SignalAwareCommand\Signal
+     */ 
+        class Signal {
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function handle($signal, $callable)
+        {
+                        /** @var \Spatie\SignalAwareCommand\Signal $instance */
+                        return $instance->handle($signal, $callable);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function executeSignalHandlers($signal, $command)
+        {
+                        /** @var \Spatie\SignalAwareCommand\Signal $instance */
+                        return $instance->executeSignalHandlers($signal, $command);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function clearHandlers($signal = null)
+        {
+                        /** @var \Spatie\SignalAwareCommand\Signal $instance */
+                        return $instance->clearHandlers($signal);
         }
          
     }
@@ -20751,6 +20868,39 @@
         {
                         return \Illuminate\Testing\TestView::assertDontSeeLivewire($component);
         }
+         
+    }
+     
+}
+
+    namespace App\Http\Requests { 
+            /**
+     * 
+     *
+     */ 
+        class ProfileUpdateRequest {
+         
+    }
+     
+}
+
+    namespace Illuminate\Foundation\Http { 
+            /**
+     * 
+     *
+     */ 
+        class FormRequest {
+         
+    }
+     
+}
+
+    namespace App\Http\Requests\Auth { 
+            /**
+     * 
+     *
+     */ 
+        class LoginRequest {
          
     }
      
@@ -24678,7 +24828,9 @@ namespace  {
             class FilamentClearCache extends \CmsMulti\FilamentClearCache\Facades\FilamentClearCache {}
             class Image extends \Intervention\Image\Facades\Image {}
             class Livewire extends \Livewire\Livewire {}
+            class Health extends \Spatie\Health\Facades\Health {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
+            class Signal extends \Spatie\SignalAwareCommand\Facades\Signal {}
             class WireUi extends \WireUi\Facades\WireUi {}
      
 }

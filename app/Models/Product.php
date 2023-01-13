@@ -39,6 +39,7 @@ use Spatie\Sluggable\SlugOptions;
  * @property-read Product|null $group
  * @property-read \Illuminate\Database\Eloquent\Collection|Product[] $groupItems
  * @property-read int|null $group_items_count
+ * @property-read \App\Models\Media|null $mainImage
  * @method static \Database\Factories\ProductFactory factory(...$parameters)
  * @method static Builder|Product newModelQuery()
  * @method static Builder|Product newQuery()
