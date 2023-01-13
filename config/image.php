@@ -16,5 +16,4 @@ return [
     */
 
     'driver' => 'gd'
-
 ];
