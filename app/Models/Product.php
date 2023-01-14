@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -30,6 +31,7 @@ use Spatie\Sluggable\SlugOptions;
  * @property bool $is_subscribe
  * @property bool $is_active
  * @property int $position
+ * @property int $searchable
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -59,6 +61,7 @@ use Spatie\Sluggable\SlugOptions;
  * @method static Builder|Product wherePrice($value)
  * @method static Builder|Product whereProductCategoryId($value)
  * @method static Builder|Product whereProductId($value)
+ * @method static Builder|Product whereSearchable($value)
  * @method static Builder|Product whereSlug($value)
  * @method static Builder|Product whereTitle($value)
  * @method static Builder|Product whereUpdatedAt($value)
@@ -68,7 +71,7 @@ use Spatie\Sluggable\SlugOptions;
  */
 class Product extends Model
 {
-    use HasFactory, SoftDeletes, HasSlug;
+    use HasFactory, SoftDeletes, HasSlug, Searchable;
 
     protected $fillable = [
         'product_category_id',
@@ -84,6 +87,7 @@ class Product extends Model
         'is_subscribe',
         'is_active',
         'position',
+        'searchable',
     ];
 
     protected $casts = [
@@ -92,6 +96,7 @@ class Product extends Model
         'is_subscribe' => 'bool',
         'is_active' => 'bool',
         'position' => 'int',
+        'searchable' => 'bool',
     ];
 
     protected $attributes = [
@@ -100,6 +105,7 @@ class Product extends Model
         'is_subscribe' => false,
         'is_active' => true,
         'position' => 0,
+        'searchable' => true,
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -107,6 +113,21 @@ class Product extends Model
         return SlugOptions::create()
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
+    }
+
+    public function searchable(): bool
+    {
+        return $this->is_active || $this->searchable;
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'description' => $this->description,
+            'price' => $this->price,
+        ];
     }
 
     public function mainImage(): HasOne
