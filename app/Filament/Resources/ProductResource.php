@@ -3,56 +3,33 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers\CommentsRelationManager;
-use App\Filament\Resources\ProductResource\RelationManagers\GroupItemsRelationManager;
 use App\Models\Product;
 use App\Models\ProductCategory;
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
+use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\ForceDeleteAction;
-use Filament\Tables\Actions\ForceDeleteBulkAction;
-use Filament\Tables\Actions\RestoreAction;
-use Filament\Tables\Actions\RestoreBulkAction;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ToggleColumn;
-use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables;
 use FilamentCurator\Forms\Components\MediaPicker;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Str;
-use Livewire\TemporaryUploadedFile;
 
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static ?string $slug = 'products';
-
-    protected static ?string $recordTitleAttribute = 'title';
+    protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Group::make()
+                Forms\Components\Group::make()
                     ->schema([
-                        Card::make()
+                        Forms\Components\Card::make()
                             ->schema([
-                                Select::make('product_category_id')
+                                Forms\Components\Select::make('product_category_id')
                                     ->required()
                                     ->label('Category')
                                     ->options(function () {
@@ -60,7 +37,7 @@ class ProductResource extends Resource
                                             ->pluck('title', 'id');
                                     }),
 
-                                Select::make('product_id')
+                                Forms\Components\Select::make('product_id')
                                     ->label('Group')
                                     ->options(function (?Model $record) {
                                         return Product::all()
@@ -69,56 +46,53 @@ class ProductResource extends Resource
                                             ->pluck('title', 'id');
                                     }),
 
-                                TextInput::make('title')
+                                Forms\Components\TextInput::make('title')
                                     ->required(),
 
-                                TextInput::make('slug')
+                                Forms\Components\TextInput::make('slug')
                                     ->disabled(),
 
-                                RichEditor::make('description')
-                                    ->fileAttachmentsDisk('public')
-                                    ->fileAttachmentsDirectory('attachments')
-                                    ->fileAttachmentsVisibility('private'),
+                                Forms\Components\MarkdownEditor::make('description'),
                             ]),
                     ])
                     ->columnSpan(['lg' => 2]),
 
-                Section::make('Settings')
+                Forms\Components\Section::make('Settings')
                     ->schema([
                         MediaPicker::make('main_image')
                             ->disk('products')
                             ->disableLabel(),
 
-                        TextInput::make('price')
+                        Forms\Components\TextInput::make('price')
                             ->numeric()
                             ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
                             ->required()
                             ->minValue(0)
                             ->maxValue(999999.99),
 
-                        Toggle::make('is_stockable')
+                        Forms\Components\Toggle::make('is_stockable')
                             ->default(true),
 
-                        TextInput::make('in_stock')
+                        Forms\Components\TextInput::make('in_stock')
                             ->required()
                             ->integer()
                             ->default(0),
 
-                        Toggle::make('is_group')
+                        Forms\Components\Toggle::make('is_group')
                             ->default(false),
 
-                        Toggle::make('is_subscribe')
+                        Forms\Components\Toggle::make('is_subscribe')
                             ->default(false),
 
-                        Toggle::make('is_active')
+                        Forms\Components\Toggle::make('is_active')
                             ->label('Active')
                             ->default(true),
 
-                        Toggle::make('searchable')
+                        Forms\Components\Toggle::make('searchable')
                             ->label('Searchable')
                             ->default(true),
 
-                        TextInput::make('position')
+                        Forms\Components\TextInput::make('position')
                             ->required()
                             ->integer()
                             ->default(0),
@@ -132,57 +106,34 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('category.title')
-                    ->label('Category'),
-
-                TextColumn::make('group.title')
-                    ->label('Group'),
-
-                TextColumn::make('title')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('slug')
-                    ->searchable()
-                    ->sortable(),
-
-                ImageColumn::make('main_image')
-                    ->disk('products'),
-
-                TextColumn::make('price'),
-
-                ToggleColumn::make('is_active')
-                    ->searchable()
-                    ->sortable(),
-
-                ToggleColumn::make('searchable')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('position')
-                    ->searchable()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('slug'),
+                Tables\Columns\IconColumn::make('is_active')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('position'),
+                Tables\Columns\IconColumn::make('searchable')
+                    ->boolean(),
             ])
             ->filters([
-                TrashedFilter::make(),
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                DeleteAction::make(),
-                ForceDeleteAction::make(),
-                RestoreAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
-                DeleteBulkAction::make(),
-                ForceDeleteBulkAction::make(),
-                RestoreBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            CommentsRelationManager::class,
-            GroupItemsRelationManager::class,
+            //
         ];
     }
 
@@ -195,16 +146,11 @@ class ProductResource extends Resource
         ];
     }
 
-    protected static function getGlobalSearchEloquentQuery(): Builder
+    public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
-    }
-
-    public static function getGloballySearchableAttributes(): array
-    {
-        return ['title', 'slug'];
     }
 }

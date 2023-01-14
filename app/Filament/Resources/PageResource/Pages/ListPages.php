@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\PageResource\Pages;
 
 use App\Filament\Resources\PageResource;
-use Filament\Pages\Actions\CreateAction;
+use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListPages extends ListRecords
@@ -13,7 +13,7 @@ class ListPages extends ListRecords
     protected function getActions(): array
     {
         return [
-            CreateAction::make(),
+            Actions\CreateAction::make(),
         ];
     }
 }
