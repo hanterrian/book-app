@@ -111,6 +111,11 @@ class ProductResource extends Resource
                             ->default(false),
 
                         Toggle::make('is_active')
+                            ->label('Active')
+                            ->default(true),
+
+                        Toggle::make('searchable')
+                            ->label('Searchable')
                             ->default(true),
 
                         TextInput::make('position')
@@ -147,6 +152,10 @@ class ProductResource extends Resource
                 TextColumn::make('price'),
 
                 ToggleColumn::make('is_active')
+                    ->searchable()
+                    ->sortable(),
+
+                ToggleColumn::make('searchable')
                     ->searchable()
                     ->sortable(),
 
@@ -188,8 +197,7 @@ class ProductResource extends Resource
 
     protected static function getGlobalSearchEloquentQuery(): Builder
     {
-        return parent::getGlobalSearchEloquentQuery()
-            ->with(['category', 'group'])
+        return parent::getEloquentQuery()
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
@@ -197,21 +205,6 @@ class ProductResource extends Resource
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['title', 'slug', 'category.title', 'group.title'];
-    }
-
-    public static function getGlobalSearchResultDetails(Model $record): array
-    {
-        $details = [];
-
-        if ($record->category) {
-            $details['Category'] = $record->category->title;
-        }
-
-        if ($record->group) {
-            $details['Group'] = $record->group->title;
-        }
-
-        return $details;
+        return ['title', 'slug'];
     }
 }

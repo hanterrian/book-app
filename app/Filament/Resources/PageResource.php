@@ -9,15 +9,27 @@ use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ForceDeleteAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Actions\RestoreAction;
+use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TrashedFilter;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Forms\Components\PageBuilder;
 
@@ -60,6 +72,14 @@ class PageResource extends Resource
                                     ->options(FilamentFabricator::getLayouts())
                                     ->default('default')
                                     ->required(),
+
+                                Toggle::make('is_active')
+                                    ->label('Active')
+                                    ->default(true),
+
+                                Toggle::make('searchable')
+                                    ->label('Searchable')
+                                    ->default(true),
                             ]),
 
                     ]),
@@ -76,29 +96,32 @@ class PageResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('url')
-                    ->label(__('filament-fabricator::page-resource.labels.url'))
-                    ->toggleable()
-                    ->getStateUsing(fn (?Page $record) => config('filament-fabricator.routing.prefix').FilamentFabricator::getPageUrlFromId($record->id, true) ?: null)
-                    ->url(fn (?Page $record) => config('filament-fabricator.routing.prefix').FilamentFabricator::getPageUrlFromId($record->id, true) ?: null, true)
-                    ->visible(config('filament-fabricator.routing.enabled')),
+                TextColumn::make('slug')
+                    ->label(__('filament-fabricator::page-resource.labels.title'))
+                    ->searchable()
+                    ->sortable(),
 
-                BadgeColumn::make('layout')
-                    ->label(__('filament-fabricator::page-resource.labels.layout'))
-                    ->toggleable()
-                    ->sortable()
-                    ->enum(FilamentFabricator::getLayouts()),
+                ToggleColumn::make('is_active')
+                    ->searchable()
+                    ->sortable(),
+
+                ToggleColumn::make('searchable')
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
-                SelectFilter::make('layout')
-                    ->label(__('filament-fabricator::page-resource.labels.layout'))
-                    ->options(FilamentFabricator::getLayouts()),
+                TrashedFilter::make(),
             ])
             ->actions([
-                ViewAction::make(),
-                EditAction::make(),
+                DeleteAction::make(),
+                ForceDeleteAction::make(),
+                RestoreAction::make(),
             ])
-            ->bulkActions([]);
+            ->bulkActions([
+                DeleteBulkAction::make(),
+                ForceDeleteBulkAction::make(),
+                RestoreBulkAction::make(),
+            ]);
     }
 
     public static function getPages(): array
@@ -106,8 +129,20 @@ class PageResource extends Resource
         return [
             'index' => Pages\ListPages::route('/'),
             'create' => Pages\CreatePage::route('/create'),
-            'view' => Pages\ViewPage::route('/{record}'),
             'edit' => Pages\EditPage::route('/{record}/edit'),
         ];
+    }
+
+    protected static function getGlobalSearchEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['title', 'slug'];
     }
 }

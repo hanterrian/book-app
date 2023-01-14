@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\PageResource\Pages;
 
-use Filament\Pages\Actions;
-use Filament\Resources\Pages\EditRecord;
 use App\Filament\Resources\PageResource;
+use Filament\Pages\Actions\DeleteAction;
+use Filament\Pages\Actions\ForceDeleteAction;
+use Filament\Pages\Actions\RestoreAction;
+use Filament\Resources\Pages\EditRecord;
 
 class EditPage extends EditRecord
 {
@@ -13,8 +15,9 @@ class EditPage extends EditRecord
     protected function getActions(): array
     {
         return [
-            Actions\ViewAction::make(),
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
+            ForceDeleteAction::make(),
+            RestoreAction::make(),
         ];
     }
 }
