@@ -21349,7 +21349,7 @@
      * 
      *
      */ 
-        class RichEditor {
+        class MarkdownEditor {
          
     }
      
