@@ -38,6 +38,8 @@ return new class extends Migration {
             $table->boolean('is_active')->default(true);
             $table->integer('position')->default(0);
 
+            $table->boolean('searchable')->default(true);
+
             $table->softDeletes();
 
             $table->timestamps();

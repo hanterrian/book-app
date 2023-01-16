@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\PageResource\Pages;
 
+use App\Filament\Resources\PageResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
-use App\Filament\Resources\PageResource;
 
 class EditPage extends EditRecord
 {
@@ -15,6 +15,8 @@ class EditPage extends EditRecord
         return [
             Actions\ViewAction::make(),
             Actions\DeleteAction::make(),
+            Actions\ForceDeleteAction::make(),
+            Actions\RestoreAction::make(),
         ];
     }
 }

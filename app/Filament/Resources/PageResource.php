@@ -6,18 +6,15 @@ use App\Filament\Resources\PageResource\Pages;
 use App\Models\Page;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\BadgeColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Z3d0X\FilamentFabricator\Facades\FilamentFabricator;
 use Z3d0X\FilamentFabricator\Forms\Components\PageBuilder;
 
@@ -25,9 +22,7 @@ class PageResource extends Resource
 {
     protected static ?string $model = Page::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
-
-    protected static ?string $recordTitleAttribute = 'title';
+    protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     public static function form(Form $form): Form
     {
@@ -60,6 +55,14 @@ class PageResource extends Resource
                                     ->options(FilamentFabricator::getLayouts())
                                     ->default('default')
                                     ->required(),
+
+                                Toggle::make('is_active')
+                                    ->label('Active')
+                                    ->default(true),
+
+                                Toggle::make('searchable')
+                                    ->label('Searchable')
+                                    ->default(true),
                             ]),
 
                     ]),
@@ -71,34 +74,36 @@ class PageResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')
-                    ->label(__('filament-fabricator::page-resource.labels.title'))
-                    ->searchable()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('slug'),
 
-                TextColumn::make('url')
-                    ->label(__('filament-fabricator::page-resource.labels.url'))
-                    ->toggleable()
-                    ->getStateUsing(fn (?Page $record) => config('filament-fabricator.routing.prefix').FilamentFabricator::getPageUrlFromId($record->id, true) ?: null)
-                    ->url(fn (?Page $record) => config('filament-fabricator.routing.prefix').FilamentFabricator::getPageUrlFromId($record->id, true) ?: null, true)
-                    ->visible(config('filament-fabricator.routing.enabled')),
-
-                BadgeColumn::make('layout')
-                    ->label(__('filament-fabricator::page-resource.labels.layout'))
-                    ->toggleable()
-                    ->sortable()
-                    ->enum(FilamentFabricator::getLayouts()),
+                Tables\Columns\IconColumn::make('is_active')
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('searchable')
+                    ->boolean(),
             ])
             ->filters([
-                SelectFilter::make('layout')
-                    ->label(__('filament-fabricator::page-resource.labels.layout'))
-                    ->options(FilamentFabricator::getLayouts()),
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                ViewAction::make(),
-                EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
             ])
-            ->bulkActions([]);
+            ->bulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
+            ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
     }
 
     public static function getPages(): array
@@ -109,5 +114,13 @@ class PageResource extends Resource
             'view' => Pages\ViewPage::route('/{record}'),
             'edit' => Pages\EditPage::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -21,6 +22,7 @@ use Spatie\Sluggable\SlugOptions;
  * @property \App\Models\Media|null $image
  * @property bool $is_active
  * @property int $position
+ * @property int $searchable
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -41,6 +43,7 @@ use Spatie\Sluggable\SlugOptions;
  * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereProductCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereSearchable($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereUpdatedAt($value)
@@ -50,7 +53,7 @@ use Spatie\Sluggable\SlugOptions;
  */
 class ProductCategory extends Model
 {
-    use HasFactory, SoftDeletes, HasSlug;
+    use HasFactory, SoftDeletes, HasSlug, Searchable;
 
     protected $fillable = [
         'product_category_id',
@@ -59,16 +62,19 @@ class ProductCategory extends Model
         'image',
         'is_active',
         'position',
+        'searchable',
     ];
 
     protected $casts = [
         'is_active' => 'bool',
         'position' => 'int',
+        'searchable' => 'bool',
     ];
 
     protected $attributes = [
         'is_active' => true,
         'position' => 0,
+        'searchable' => true,
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -76,6 +82,19 @@ class ProductCategory extends Model
         return SlugOptions::create()
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
+    }
+
+    public function searchable(): bool
+    {
+        return $this->is_active || $this->searchable;
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'title' => $this->title,
+            'slug' => $this->slug,
+        ];
     }
 
     public function image(): HasOne

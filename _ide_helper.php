@@ -17701,6 +17701,26 @@
         {
                         return \Illuminate\Support\Collection::debug();
         }
+                    /**
+         * 
+         *
+         * @see \App\Models\Product::observe()
+         * @static 
+         */ 
+        public static function searchable()
+        {
+                        return \Illuminate\Support\Collection::searchable();
+        }
+                    /**
+         * 
+         *
+         * @see \App\Models\Product::registerSearchableMacros()
+         * @static 
+         */ 
+        public static function unsearchable()
+        {
+                        return \Illuminate\Support\Collection::unsearchable();
+        }
          
     }
             /**
@@ -21273,6 +21293,143 @@
         {
                         return \Filament\Support\Components\Component::humanDate();
         }
+         
+    }
+     
+}
+
+    namespace Filament\Forms\Components\Builder { 
+            /**
+     * 
+     *
+     */ 
+        class Block {
+         
+    }
+     
+}
+
+    namespace Filament\Forms\Components { 
+            /**
+     * 
+     *
+     */ 
+        class Component {
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class Repeater {
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class Field {
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class Select {
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class TextInput {
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class MarkdownEditor {
+         
+    }
+     
+}
+
+    namespace FilamentCurator\Forms\Components { 
+            /**
+     * 
+     *
+     */ 
+        class MediaPicker {
+         
+    }
+     
+}
+
+    namespace FilamentCurator\Actions { 
+            /**
+     * 
+     *
+     */ 
+        class MediaPickerAction {
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class DownloadAction {
+         
+    }
+     
+}
+
+    namespace Filament\Forms\Components\Actions { 
+            /**
+     * 
+     *
+     */ 
+        class Action {
+         
+    }
+     
+}
+
+    namespace Filament\Support\Actions { 
+            /**
+     * 
+     *
+     */ 
+        class Action {
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class BaseAction {
+         
+    }
+     
+}
+
+    namespace Filament\Forms\Components\Actions\Modal\Actions { 
+            /**
+     * 
+     *
+     */ 
+        class Action {
+         
+    }
+     
+}
+
+    namespace Filament\Support\Actions\Modal\Actions { 
+            /**
+     * 
+     *
+     */ 
+        class Action {
          
     }
      

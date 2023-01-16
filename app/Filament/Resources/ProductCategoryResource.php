@@ -3,51 +3,32 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductCategoryResource\Pages;
-use App\Filament\Resources\ProductCategoryResource\RelationManagers\ChildrenRelationManager;
 use App\Models\ProductCategory;
-use Filament\Forms\Components\Card;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
+use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\ForceDeleteAction;
-use Filament\Tables\Actions\ForceDeleteBulkAction;
-use Filament\Tables\Actions\RestoreAction;
-use Filament\Tables\Actions\RestoreBulkAction;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ToggleColumn;
-use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables;
 use FilamentCurator\Forms\Components\MediaPicker;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Livewire\TemporaryUploadedFile;
 
 class ProductCategoryResource extends Resource
 {
     protected static ?string $model = ProductCategory::class;
 
-    protected static ?string $slug = 'product-categories';
-
-    protected static ?string $recordTitleAttribute = 'title';
+    protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Group::make()
+                Forms\Components\Group::make()
                     ->schema([
-                        Card::make()
+                        Forms\Components\Card::make()
                             ->schema([
-                                Select::make('product_category_id')
+                                Forms\Components\Select::make('product_category_id')
                                     ->label('Parent category')
                                     ->options(function (?Model $record) {
                                         return ProductCategory::all()
@@ -56,25 +37,33 @@ class ProductCategoryResource extends Resource
                                             ->pluck('title', 'id');
                                     }),
 
-                                TextInput::make('title')
+                                Forms\Components\TextInput::make('title')
                                     ->required(),
 
-                                TextInput::make('slug')
+                                Forms\Components\TextInput::make('slug')
                                     ->disabled(),
                             ]),
                     ])
                     ->columnSpan(['lg' => 2]),
 
-                Section::make('Settings')
+                Forms\Components\Section::make('Settings')
                     ->schema([
                         MediaPicker::make('image')
                             ->disk('categories')
                             ->disableLabel(),
 
-                        Toggle::make('is_active')
+                        Forms\Components\Toggle::make('is_active')
                             ->default(true),
 
-                        TextInput::make('position')
+                        Forms\Components\Toggle::make('is_active')
+                            ->label('Active')
+                            ->default(true),
+
+                        Forms\Components\Toggle::make('searchable')
+                            ->label('Searchable')
+                            ->default(true),
+
+                        Forms\Components\TextInput::make('position')
                             ->required()
                             ->integer()
                             ->default(0),
@@ -88,47 +77,34 @@ class ProductCategoryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('parent.title')
-                    ->label('Parent category'),
-
-                TextColumn::make('title')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('slug')
-                    ->searchable()
-                    ->sortable(),
-
-                ImageColumn::make('image')
-                    ->disk('categories'),
-
-                ToggleColumn::make('is_active')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('position')
-                    ->searchable()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('slug'),
+                Tables\Columns\IconColumn::make('is_active')
+                    ->boolean(),
+                Tables\Columns\TextColumn::make('position'),
+                Tables\Columns\IconColumn::make('searchable')
+                    ->boolean(),
             ])
             ->filters([
-                TrashedFilter::make(),
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                DeleteAction::make(),
-                ForceDeleteAction::make(),
-                RestoreAction::make(),
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
-                DeleteBulkAction::make(),
-                ForceDeleteBulkAction::make(),
-                RestoreBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            ChildrenRelationManager::class,
+            //
         ];
     }
 
@@ -141,24 +117,11 @@ class ProductCategoryResource extends Resource
         ];
     }
 
-    protected static function getGlobalSearchEloquentQuery(): Builder
+    public static function getEloquentQuery(): Builder
     {
-        return parent::getGlobalSearchEloquentQuery()
-            ->with('parent')
+        return parent::getEloquentQuery()
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
-    }
-
-    public static function getGloballySearchableAttributes(): array
-    {
-        return ['title', 'slug'];
-    }
-
-    public static function getGlobalSearchResultDetails(Model $record): array
-    {
-        $details = [];
-
-        return $details;
     }
 }
