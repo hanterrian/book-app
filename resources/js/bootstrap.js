@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import * as bootstrap from 'bootstrap';
+import './../../node_modules/flowbite/dist/flowbite'
 
 window._ = _;
 

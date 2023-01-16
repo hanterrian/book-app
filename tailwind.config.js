@@ -9,7 +9,8 @@ module.exports = {
         './resources/js/**/*.jsx',
         './vendor/wireui/wireui/resources/**/*.blade.php',
         './vendor/wireui/wireui/ts/**/*.ts',
-        './vendor/wireui/wireui/src/View/**/*.php'
+        './vendor/wireui/wireui/src/View/**/*.php',
+        "./node_modules/flowbite/**/*.js"
     ],
 
     presets: [
@@ -25,6 +26,6 @@ module.exports = {
     },
 
     plugins: [
-        require('@tailwindcss/forms')
+        require('flowbite/plugin')
     ],
 };

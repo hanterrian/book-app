@@ -1,16 +1,29 @@
 <div class="">
-    <a href="#" class="" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="{{ $user->avatar }}" alt="mdo" width="32" height="32" class="rounded-circle">
-    </a>
-    <ul class="">
-        <li><a class=" {{ checkUrl(route('profile.view'))?'':'' }}" href="{{ route('profile.view') }}">Dashboard</a></li>
-        <li><a class=" {{ checkUrl(route('profile.settings'))?'':'' }}" href="{{ route('profile.settings') }}">Settings</a></li>
-        <li><a class=" {{ checkUrl(route('profile.message'))?'':'' }}" href="{{ route('profile.message') }}">Messages</a></li>
-        <li>
-            <hr class="">
-        </li>
-        <li>
-            <a href="#" wire:click.prevent="logoutUser" class="">Sign out</a>
-        </li>
-    </ul>
+    <img id="avatarButton" src="{{ $user->avatar }}" alt="{{ $user->name }}" class="w-10 h-10 rounded-full cursor-pointer" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start">
+
+    <!-- Dropdown menu -->
+    <div id="userDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+            <div>{{ $user->name }}</div>
+            <div class="font-medium truncate">{{ $user->email }}</div>
+        </div>
+        <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
+            <li>
+                <a href="{{ route('profile.view') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ checkUrl(route('profile.view'))?'bg-gray-100':'' }}">
+                    Dashboard
+                </a>
+                <a href="{{ route('profile.settings') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ checkUrl(route('profile.settings'))?'bg-gray-100':'' }}">
+                    Settings
+                </a>
+                <a href="{{ route('profile.message') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white {{ checkUrl(route('profile.message'))?'bg-gray-100':'' }}">
+                    Messages
+                </a>
+            </li>
+        </ul>
+        <div class="py-1">
+            <a href="#" wire:click.prevent="logoutUser" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                Sign out
+            </a>
+        </div>
+    </div>
 </div>
