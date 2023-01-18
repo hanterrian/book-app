@@ -4,8 +4,10 @@
 
         <x-slot:body>
             <x-form.group>
-
+                <x-form.label for="name">Name</x-form.label>
+                <x-form.input id="name" wire:model.lazy="name"/>
             </x-form.group>
+            <x-form.button wire:click.prevent="changeName">Save</x-form.button>
         </x-slot:body>
     </x-form.block>
 
