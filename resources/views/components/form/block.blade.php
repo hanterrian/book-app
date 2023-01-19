@@ -8,6 +8,6 @@
     </div>
 
     <div {{ $body->attributes->merge(['class'=>'p-5']) }}>
-        {{ $slot }}
+        {{ $body }}
     </div>
 </div>

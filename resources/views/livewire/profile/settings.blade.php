@@ -16,8 +16,9 @@
 
         <x-slot:body>
             <x-form.group>
-
+                <x-form.image-upload src="{{ $user->avatar }}" name="avatar" wire:model.lazy="avatar"/>
             </x-form.group>
+            <x-form.button wire:click.prevent="uploadAvatar">Save</x-form.button>
         </x-slot:body>
     </x-form.block>
 
