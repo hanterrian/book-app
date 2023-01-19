@@ -27,6 +27,15 @@
 
         <x-slot:body>
             <x-form.group>
+                <x-form.group>
+                    <x-form.label for="new_password">New Password</x-form.label>
+                    <x-form.input id="new_password" type="password" wire:model.lazy="new_password"/>
+                </x-form.group>
+                <x-form.group>
+                    <x-form.label for="new_password_confirmation">New Password Confirmation</x-form.label>
+                    <x-form.input id="new_password_confirmation" type="password" wire:model.lazy="new_password_confirmation"/>
+                </x-form.group>
+                <x-form.button wire:click.prevent="changePassword">Change</x-form.button>
 
             </x-form.group>
         </x-slot:body>

@@ -1,9 +1,9 @@
 @php
     $inputName = $attributes->get('name');
 @endphp
-<div>
+<div class="avatar-upload">
     <img
-        class="{{ $attributes->only('imageClass')->merge(['imageClass'=>'w-10 h-10 rounded']) }}"
+        class="{{ $attributes->get('imageClass','w-10 h-10 rounded cursor-pointer') }}"
         src="{{ $attributes->get('src') }}"
         alt="User avatar"
     />
