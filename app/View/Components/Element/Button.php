@@ -25,6 +25,56 @@ class Button extends Component
 
     public function render(): View
     {
+        $this->setType();
+        $this->setSize();
+
         return view('components.element.button');
+    }
+
+    private function setType(): void
+    {
+        switch ($this->type) {
+            case self::TYPE_DEFAULT:
+            default:
+                $this->attributes->merge(['class' => '']);
+                break;
+            case self::TYPE_ALTERNATIVE:
+                $this->attributes->merge(['class' => '']);
+                break;
+            case self::TYPE_DARK:
+                $this->attributes->merge(['class' => '']);
+                break;
+            case self::TYPE_LIGHT:
+                $this->attributes->merge(['class' => '']);
+                break;
+            case self::TYPE_GREEN:
+                $this->attributes->merge(['class' => '']);
+                break;
+            case self::TYPE_RED:
+                $this->attributes->merge(['class' => '']);
+                break;
+            case self::TYPE_YELLOW:
+                $this->attributes->merge(['class' => '']);
+                break;
+            case self::TYPE_PURPLE:
+                $this->attributes->merge(['class' => '']);
+                break;
+        }
+    }
+
+    private function setSize(): void
+    {
+        switch ($this->size) {
+            case self::TYPE_DEFAULT:
+            default:
+                $this->attributes->merge(['class' => '']);
+                break;
+            case self::SIZE_SMALL:
+                $this->attributes->merge(['class' => '']);
+                break;
+            case self::SIZE_LARGE:
+                $this->attributes->merge(['class' => '']);
+                break;
+        }
     }
 }
