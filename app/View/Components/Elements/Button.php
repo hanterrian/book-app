@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Element;
+namespace App\View\Components\Elements;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -28,7 +28,7 @@ class Button extends Component
         $this->setType();
         $this->setSize();
 
-        return view('components.element.button');
+        return view('components.elements.button');
     }
 
     private function setType(): void
@@ -39,14 +39,14 @@ class Button extends Component
                 $this->attributes->merge([
                     'class' => [
                         'text-white',
+                        'rounded-lg',
                         'bg-blue-700',
                         'hover:bg-blue-800',
                         'focus:ring-4',
                         'focus:ring-blue-300',
-                        'rounded-lg',
+                        'focus:outline-none',
                         'dark:bg-blue-600',
                         'dark:hover:bg-blue-700',
-                        'focus:outline-none',
                         'dark:focus:ring-blue-800',
                     ],
                 ]);
