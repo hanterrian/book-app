@@ -36,7 +36,20 @@ class Button extends Component
         switch ($this->type) {
             case self::TYPE_DEFAULT:
             default:
-                $this->attributes->merge(['class' => '']);
+                $this->attributes->merge([
+                    'class' => [
+                        'text-white',
+                        'bg-blue-700',
+                        'hover:bg-blue-800',
+                        'focus:ring-4',
+                        'focus:ring-blue-300',
+                        'rounded-lg',
+                        'dark:bg-blue-600',
+                        'dark:hover:bg-blue-700',
+                        'focus:outline-none',
+                        'dark:focus:ring-blue-800',
+                    ],
+                ]);
                 break;
             case self::TYPE_ALTERNATIVE:
                 $this->attributes->merge(['class' => '']);
