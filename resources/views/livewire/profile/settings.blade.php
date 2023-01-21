@@ -36,7 +36,6 @@
                     <x-form.input id="new_password_confirmation" type="password" wire:model.lazy="new_password_confirmation"/>
                 </x-form.group>
                 <x-element.button wire:click.prevent="changePassword">Change</x-element.button>
-
             </x-form.group>
         </x-slot:body>
     </x-form.block>
