@@ -17,7 +17,6 @@ if (!function_exists('subFolder')) {
     }
 }
 
-
 if (!function_exists('getNextId')) {
     function getNextId(string $model): ?int
     {
@@ -26,5 +25,12 @@ if (!function_exists('getNextId')) {
 
         $statement = DB::select("SHOW TABLE STATUS LIKE '{$model->getTable()}'");
         return $statement[0]?->Auto_increment;
+    }
+}
+
+if (!function_exists('merge')) {
+    function merge(array &$target, array $items): void
+    {
+        $target = array_merge($target, $items);
     }
 }
