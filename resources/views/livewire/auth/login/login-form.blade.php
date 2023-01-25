@@ -20,5 +20,5 @@
         <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary">{{ __('Sign up') }}</button>
+    <x-elements.button>{{ __('Sign up') }}</x-elements.button>
 </form>
