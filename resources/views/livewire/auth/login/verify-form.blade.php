@@ -1,10 +1,7 @@
 <form wire:submit.prevent="checkForm">
-    <div class="form-floating mb-3">
-        <input id="loginFormValidateCode" class="form-control rounded-3 @error('validateCode') is-invalid @enderror" type="text" wire:model.lazy="validateCode"/>
-        <label for="loginFormValidateCode" class="floatingInput">{{ __('Validate code') }}</label>
-        @error('validateCode')
-        <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-    </div>
+    <x-form.group>
+        <x-form.label for="loginFormValidateCode">{{ __('Validate code') }}</x-form.label>
+        <x-form.input id="loginFormValidateCode" wire:model.lazy="validateCode"/>
+    </x-form.group>
     <x-elements.button>{{ __('Validate') }}</x-elements.button>
 </form>
