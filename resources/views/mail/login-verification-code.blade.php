@@ -1,1 +1,6 @@
-Verification login code: {{ $user->validate_code }}
+@component('mail::message')
+    Verification login code
+    @component('mail::panel')
+        {{ $user->validate_code }}
+    @endcomponent
+@endcomponent

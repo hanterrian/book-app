@@ -19271,6 +19271,89 @@
      
 }
 
+    namespace Xammie\Mailbook\Facades { 
+            /**
+     * 
+     *
+     * @mixin \Xammie\Mailbook\Mailbook
+     */ 
+        class Mailbook {
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function add($class)
+        {
+                        /** @var \Xammie\Mailbook\Mailbook $instance */
+                        return $instance->add($class);
+        }
+                    /**
+         * 
+         *
+         * @return \Xammie\Mailbook\Collection<int, MailableItem> 
+         * @static 
+         */ 
+        public static function mailables()
+        {
+                        /** @var \Xammie\Mailbook\Mailbook $instance */
+                        return $instance->mailables();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function setLocale($locale)
+        {
+                        /** @var \Xammie\Mailbook\Mailbook $instance */
+                        return $instance->setLocale($locale);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getLocale()
+        {
+                        /** @var \Xammie\Mailbook\Mailbook $instance */
+                        return $instance->getLocale();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function getMessage()
+        {
+                        /** @var \Xammie\Mailbook\Mailbook $instance */
+                        return $instance->getMessage();
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function setMessage($message)
+        {
+                        /** @var \Xammie\Mailbook\Mailbook $instance */
+                        return $instance->setMessage($message);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function clearMessage()
+        {
+                        /** @var \Xammie\Mailbook\Mailbook $instance */
+                        return $instance->clearMessage();
+        }
+         
+    }
+     
+}
+
     namespace Z3d0X\FilamentFabricator\Facades { 
             /**
      * 
@@ -25250,6 +25333,7 @@ namespace  {
             class Health extends \Spatie\Health\Facades\Health {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
             class Signal extends \Spatie\SignalAwareCommand\Facades\Signal {}
+            class Mailbook extends \Xammie\Mailbook\Facades\Mailbook {}
             class FilamentFabricator extends \Z3d0X\FilamentFabricator\Facades\FilamentFabricator {}
             class WireUi extends \WireUi\Facades\WireUi {}
      

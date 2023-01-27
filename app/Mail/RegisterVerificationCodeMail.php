@@ -44,7 +44,7 @@ class RegisterVerificationCodeMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'mail.register-verification-code',
+            markdown: 'mail.register-verification-code',
             with: [
                 'user' => $this->user,
             ]

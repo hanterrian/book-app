@@ -44,7 +44,7 @@ class LoginVerificationCodeMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'mail.login-verification-code',
+            markdown: 'mail.login-verification-code',
             with: [
                 'user' => $this->user,
             ]

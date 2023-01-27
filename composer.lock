@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a087cef4a869ecbd23e82cf4b0eb0272",
+    "content-hash": "4bf47798d6424cf3424e31fc2653dd22",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -682,16 +682,16 @@
         },
         {
             "name": "cms-multi/filament-clear-cache",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cms-multi/filament-clear-cache.git",
-                "reference": "c57a9d03bd23ce9c5312548c9fd45eb89f7a26ed"
+                "reference": "223dc6565e595da1f438fc811b29b004743cfe2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cms-multi/filament-clear-cache/zipball/c57a9d03bd23ce9c5312548c9fd45eb89f7a26ed",
-                "reference": "c57a9d03bd23ce9c5312548c9fd45eb89f7a26ed",
+                "url": "https://api.github.com/repos/cms-multi/filament-clear-cache/zipball/223dc6565e595da1f438fc811b29b004743cfe2e",
+                "reference": "223dc6565e595da1f438fc811b29b004743cfe2e",
                 "shasum": ""
             },
             "require": {
@@ -752,9 +752,9 @@
             ],
             "support": {
                 "issues": "https://github.com/cms-multi/filament-clear-cache/issues",
-                "source": "https://github.com/cms-multi/filament-clear-cache/tree/1.0.2"
+                "source": "https://github.com/cms-multi/filament-clear-cache/tree/1.0.3"
             },
-            "time": "2023-01-02T13:29:55+00:00"
+            "time": "2023-01-26T10:05:42+00:00"
         },
         {
             "name": "danharrin/date-format-converter",
@@ -7741,16 +7741,16 @@
         },
         {
             "name": "spatie/laravel-package-tools",
-            "version": "1.14.0",
+            "version": "1.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-package-tools.git",
-                "reference": "9964e65c318c30577ca1b91469f739d2b381359b"
+                "reference": "b477dd2f89d0751f0e51ffb3a70181f0bc7ab8df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/9964e65c318c30577ca1b91469f739d2b381359b",
-                "reference": "9964e65c318c30577ca1b91469f739d2b381359b",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/b477dd2f89d0751f0e51ffb3a70181f0bc7ab8df",
+                "reference": "b477dd2f89d0751f0e51ffb3a70181f0bc7ab8df",
                 "shasum": ""
             },
             "require": {
@@ -7789,7 +7789,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-package-tools/issues",
-                "source": "https://github.com/spatie/laravel-package-tools/tree/1.14.0"
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.14.1"
             },
             "funding": [
                 {
@@ -7797,7 +7797,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-10T14:09:55+00:00"
+            "time": "2023-01-27T15:33:45+00:00"
         },
         {
             "name": "spatie/laravel-permission",
@@ -12348,16 +12348,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.23",
+            "version": "9.2.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "9f1f0f9a2fbb680b26d1cf9b61b6eac43a6e4e9c"
+                "reference": "2cf940ebc6355a9d430462811b5aaa308b174bed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/9f1f0f9a2fbb680b26d1cf9b61b6eac43a6e4e9c",
-                "reference": "9f1f0f9a2fbb680b26d1cf9b61b6eac43a6e4e9c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2cf940ebc6355a9d430462811b5aaa308b174bed",
+                "reference": "2cf940ebc6355a9d430462811b5aaa308b174bed",
                 "shasum": ""
             },
             "require": {
@@ -12413,7 +12413,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.23"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.24"
             },
             "funding": [
                 {
@@ -12421,7 +12421,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-28T12:41:10+00:00"
+            "time": "2023-01-26T08:26:55+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -14074,6 +14074,87 @@
                 }
             ],
             "time": "2021-07-28T10:34:58+00:00"
+        },
+        {
+            "name": "xammie/mailbook",
+            "version": "1.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Xammie/mailbook.git",
+                "reference": "414fbde3c9ec9544b73727958c4f46ccd3f04fcc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Xammie/mailbook/zipball/414fbde3c9ec9544b73727958c4f46ccd3f04fcc",
+                "reference": "414fbde3c9ec9544b73727958c4f46ccd3f04fcc",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.0",
+                "php": "^8.0|^8.1",
+                "spatie/laravel-package-tools": "^1.9.2"
+            },
+            "require-dev": {
+                "infection/infection": "^0.26.13",
+                "laravel/pint": "^0.2.3",
+                "nunomaduro/collision": "^6.0",
+                "nunomaduro/larastan": "^2.2",
+                "nunomaduro/phpinsights": "^2.6",
+                "orchestra/testbench": "^7.0",
+                "pestphp/pest": "^1.21",
+                "pestphp/pest-plugin-laravel": "^1.1",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.5",
+                "rector/rector": "^0.15.1",
+                "spatie/invade": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Xammie\\Mailbook\\MailbookServiceProvider"
+                    ],
+                    "aliases": {
+                        "Mailbook": "Xammie\\Mailbook\\Facades\\Mailbook"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Xammie\\Mailbook\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Max Hoogenbosch",
+                    "email": "max@hoogenbos.ch",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Mail Explorer",
+            "homepage": "https://github.com/xammie/mailbook",
+            "keywords": [
+                "Xammie",
+                "laravel",
+                "mailbook"
+            ],
+            "support": {
+                "issues": "https://github.com/Xammie/mailbook/issues",
+                "source": "https://github.com/Xammie/mailbook/tree/1.5.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/xammie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-01-17T08:45:32+00:00"
         }
     ],
     "aliases": [],
