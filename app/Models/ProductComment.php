@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,20 +28,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\Product $product
  * @property-read \App\Models\User $user
  * @method static \Database\Factories\ProductCommentFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductComment newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ProductComment newQuery()
+ * @method static Builder|ProductComment isActive()
+ * @method static Builder|ProductComment newModelQuery()
+ * @method static Builder|ProductComment newQuery()
  * @method static \Illuminate\Database\Query\Builder|ProductComment onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|ProductComment query()
- * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereAttachment($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereComment($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereIsActive($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereProductCommentId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductComment whereUserId($value)
+ * @method static Builder|ProductComment query()
+ * @method static Builder|ProductComment whereAttachment($value)
+ * @method static Builder|ProductComment whereComment($value)
+ * @method static Builder|ProductComment whereCreatedAt($value)
+ * @method static Builder|ProductComment whereDeletedAt($value)
+ * @method static Builder|ProductComment whereId($value)
+ * @method static Builder|ProductComment whereIsActive($value)
+ * @method static Builder|ProductComment whereProductCommentId($value)
+ * @method static Builder|ProductComment whereProductId($value)
+ * @method static Builder|ProductComment whereUpdatedAt($value)
+ * @method static Builder|ProductComment whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|ProductComment withTrashed()
  * @method static \Illuminate\Database\Query\Builder|ProductComment withoutTrashed()
  * @mixin \Eloquent
@@ -48,6 +50,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ProductComment extends Model
 {
     use HasFactory, SoftDeletes;
+
+    public function scopeIsActive(): ProductComment|Builder
+    {
+        return $this->where('is_active', true);
+    }
 
     public function user(): BelongsTo
     {

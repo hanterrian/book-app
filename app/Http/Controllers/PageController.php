@@ -6,8 +6,10 @@ use App\Models\Page;
 
 class PageController extends Controller
 {
-    public function view(string $slug)
+    public function view(Page $page)
     {
-        $page = Page::whereSlug($slug)->firstOrFail();
+        return view('page.view', [
+            'page' => $page,
+        ]);
     }
 }

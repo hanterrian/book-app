@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Page;
+use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -41,6 +44,10 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+
+        Route::bind('page', fn ($value) => Page::isActive()->hasSlug($value)->firstOrFail());
+        Route::bind('product', fn ($value) => Product::isActive()->hasSlug($value)->firstOrFail());
+        Route::bind('category', fn ($value) => ProductCategory::isActive()->hasSlug($value)->firstOrFail());
     }
 
     /**

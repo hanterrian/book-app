@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,7 +23,7 @@ use Spatie\Sluggable\SlugOptions;
  * @property \App\Models\Media|null $image
  * @property bool $is_active
  * @property int $position
- * @property int $searchable
+ * @property bool $searchable
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -32,21 +33,23 @@ use Spatie\Sluggable\SlugOptions;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
  * @property-read int|null $products_count
  * @method static \Database\Factories\ProductCategoryFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory newQuery()
+ * @method static Builder|ProductCategory hasSlug(string $slug)
+ * @method static Builder|ProductCategory isActive()
+ * @method static Builder|ProductCategory newModelQuery()
+ * @method static Builder|ProductCategory newQuery()
  * @method static \Illuminate\Database\Query\Builder|ProductCategory onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory query()
- * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereIsActive($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory wherePosition($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereProductCategoryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereSearchable($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductCategory whereUpdatedAt($value)
+ * @method static Builder|ProductCategory query()
+ * @method static Builder|ProductCategory whereCreatedAt($value)
+ * @method static Builder|ProductCategory whereDeletedAt($value)
+ * @method static Builder|ProductCategory whereId($value)
+ * @method static Builder|ProductCategory whereImage($value)
+ * @method static Builder|ProductCategory whereIsActive($value)
+ * @method static Builder|ProductCategory wherePosition($value)
+ * @method static Builder|ProductCategory whereProductCategoryId($value)
+ * @method static Builder|ProductCategory whereSearchable($value)
+ * @method static Builder|ProductCategory whereSlug($value)
+ * @method static Builder|ProductCategory whereTitle($value)
+ * @method static Builder|ProductCategory whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|ProductCategory withTrashed()
  * @method static \Illuminate\Database\Query\Builder|ProductCategory withoutTrashed()
  * @mixin \Eloquent
@@ -95,6 +98,16 @@ class ProductCategory extends Model
             'title' => $this->title,
             'slug' => $this->slug,
         ];
+    }
+
+    public function scopeIsActive(): ProductCategory|Builder
+    {
+        return $this->where('is_active', true);
+    }
+
+    public function scopeHasSlug(Builder $query, string $slug): ProductCategory|Builder
+    {
+        return $query->where('slug', $slug);
     }
 
     public function image(): HasOne

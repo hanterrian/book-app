@@ -14,7 +14,7 @@ class Navigation extends Component
     {
         $this->items = [
             route('home') => __('Home'),
-            route('front.page', ['slug' => 'test']) => __('Test'),
+            route('front.page', ['page' => 'test']) => __('Test'),
         ];
     }
 

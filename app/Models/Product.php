@@ -31,7 +31,7 @@ use Spatie\Sluggable\SlugOptions;
  * @property bool $is_subscribe
  * @property bool $is_active
  * @property int $position
- * @property int $searchable
+ * @property bool $searchable
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -43,6 +43,8 @@ use Spatie\Sluggable\SlugOptions;
  * @property-read int|null $group_items_count
  * @property-read \App\Models\Media|null $mainImage
  * @method static \Database\Factories\ProductFactory factory(...$parameters)
+ * @method static Builder|Product hasSlug(string $slug)
+ * @method static Builder|Product isActive()
  * @method static Builder|Product newModelQuery()
  * @method static Builder|Product newQuery()
  * @method static \Illuminate\Database\Query\Builder|Product onlyTrashed()
@@ -128,6 +130,16 @@ class Product extends Model
             'description' => $this->description,
             'price' => $this->price,
         ];
+    }
+
+    public function scopeIsActive(): Product|Builder
+    {
+        return $this->where('is_active', true);
+    }
+
+    public function scopeHasSlug(Builder $query, string $slug): Product|Builder
+    {
+        return $query->where('slug', $slug);
     }
 
     public function mainImage(): HasOne
