@@ -1,10 +1,6 @@
 import _ from 'lodash';
-import * as bootstrap from 'bootstrap';
-import './../../node_modules/flowbite/dist/flowbite'
 
 window._ = _;
-
-window.bootstrap = bootstrap;
 
 const userId = document.querySelector('meta[name="userId"]').content;
 

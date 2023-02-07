@@ -1,4 +1,4 @@
 import './bootstrap';
 import '../sass/app.scss';
-import './_form';
-import './_modal';
+import './parts/_form';
+import './parts/_modal';

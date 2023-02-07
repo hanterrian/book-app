@@ -10,7 +10,6 @@ module.exports = {
         './vendor/wireui/wireui/resources/**/*.blade.php',
         './vendor/wireui/wireui/ts/**/*.ts',
         './vendor/wireui/wireui/src/View/**/*.php',
-        "./node_modules/flowbite/**/*.js",
         "./vendor/awcodes/curator/resources/views/**/*.blade.php"
     ],
 
@@ -27,6 +26,5 @@ module.exports = {
     },
 
     plugins: [
-        require('flowbite/plugin')
     ],
 };

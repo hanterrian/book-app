@@ -17883,7 +17883,7 @@
                     /**
          * Adds an exception to be profiled in the debug bar
          *
-         * @param \Exception $e
+         * @param \Throwable $e
          * @static 
          */ 
         public static function addThrowable($e)
@@ -18318,10 +18318,10 @@
          *
          * @static 
          */ 
-        public static function addCommand($command)
+        public static function addCommand($command, $params = [])
         {
                         /** @var \CmsMulti\FilamentClearCache\FilamentClearCacheManager $instance */
-                        return $instance->addCommand($command);
+                        return $instance->addCommand($command, $params);
         }
                     /**
          * 
