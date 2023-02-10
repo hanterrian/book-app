@@ -1,6 +1,6 @@
 <x-html
     :title="isset($title) ? $title.' | '.config('app.name'):''"
-    class="container"
+    class="container mx-auto"
 >
     <x-slot name="head">
         @yield('head.start')
