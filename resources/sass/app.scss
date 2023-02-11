@@ -1,5 +1,9 @@
 @import "_tailwind.scss";
 //@import "~bootstrap/scss/bootstrap";
+// Common element
 @import "parts/text";
 @import "parts/button";
+@import "parts/modal";
+
+// Site element
 @import "parts/navbar";

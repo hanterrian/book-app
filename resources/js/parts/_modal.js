@@ -12,12 +12,9 @@ if (!userId) {
     const loginModalClose = loginModal.querySelector('.close');
     const registerModalClose = registerModal.querySelector('.close');
 
-    // const loginFormModal = new Modal(loginModal, options);
-    // const registerFormModal = new Modal(registerModal, options);
-    //
-    // loginFormBtn.addEventListener('click', () => loginFormModal.show());
-    // registerFormBtn.addEventListener('click', () => registerFormModal.show());
-    //
-    // loginModalClose.addEventListener('click', () => loginFormModal.hide());
-    // registerModalClose.addEventListener('click', () => registerFormModal.hide());
+    loginFormBtn.addEventListener('click', () => loginModal.classList.add('modal-open'));
+    registerFormBtn.addEventListener('click', () => registerModal.classList.add('modal-open'));
+
+    loginModalClose.addEventListener('click', () => loginModal.classList.remove('modal-open'));
+    registerModalClose.addEventListener('click', () => registerModal.classList.remove('modal-open'));
 }
