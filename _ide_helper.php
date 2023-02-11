@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 9.50.2.
+ * Generated for Laravel 9.51.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -7653,6 +7653,7 @@
      * @method static \Illuminate\Http\Client\PendingRequest withDigestAuth(string $username, string $password)
      * @method static \Illuminate\Http\Client\PendingRequest withToken(string $token, string $type = 'Bearer')
      * @method static \Illuminate\Http\Client\PendingRequest withUserAgent(string $userAgent)
+     * @method static \Illuminate\Http\Client\PendingRequest withUrlParameters(array $parameters = [])
      * @method static \Illuminate\Http\Client\PendingRequest withCookies(array $cookies, string $domain)
      * @method static \Illuminate\Http\Client\PendingRequest maxRedirects(int $max)
      * @method static \Illuminate\Http\Client\PendingRequest withoutRedirecting()
@@ -21267,39 +21268,6 @@
         {
                         return \Illuminate\Testing\TestView::assertDontSeeLivewire($component);
         }
-         
-    }
-     
-}
-
-    namespace App\Http\Requests { 
-            /**
-     * 
-     *
-     */ 
-        class ProfileUpdateRequest {
-         
-    }
-     
-}
-
-    namespace Illuminate\Foundation\Http { 
-            /**
-     * 
-     *
-     */ 
-        class FormRequest {
-         
-    }
-     
-}
-
-    namespace App\Http\Requests\Auth { 
-            /**
-     * 
-     *
-     */ 
-        class LoginRequest {
          
     }
      
