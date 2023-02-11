@@ -1,7 +1,31 @@
 .btn {
-    @apply text-sm font-medium text-gray-600 dark:text-gray-500 hover:underline;
+    @apply text-white rounded-lg focus:ring-4 focus:outline-none;
 }
 
 .btn-primary {
-    @apply text-blue-600 dark:text-blue-500;
+    @apply bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800;
+}
+
+.btn-success {
+    @apply bg-green-700 hover:bg-green-800 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800;
+}
+
+.btn-warning {
+    @apply bg-yellow-700 hover:bg-yellow-800 focus:ring-yellow-300 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800;
+}
+
+.btn-danger {
+    @apply bg-red-700 hover:bg-red-800 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800;
+}
+
+.btn-normal {
+    @apply px-4 py-2;
+}
+
+.btn-small {
+    @apply px-2 py-1;
+}
+
+.btn-large {
+    @apply px-6 py-4;
 }

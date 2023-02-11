@@ -1,0 +1,27 @@
+.modal {
+    @apply fixed z-50 w-full p-4 inset-0 bg-gray-600 bg-opacity-50 overflow-x-hidden overflow-y-auto h-full w-full;
+}
+
+.modal-hide {
+    @apply hidden;
+}
+
+.modal-container {
+    @apply relative top-20 mx-auto max-w-max;
+}
+
+.modal-content {
+    @apply relative bg-white rounded-lg shadow dark:bg-gray-700;
+}
+
+.modal-header {
+    @apply flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600;
+}
+
+.modal-body {
+    @apply p-6 space-y-6;
+}
+
+.modal-footer {
+    @apply flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600;
+}

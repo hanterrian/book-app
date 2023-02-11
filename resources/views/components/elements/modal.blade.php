@@ -4,13 +4,13 @@
     'body'=>false,
     'footer'=>false,
 ])
-<div id="{{ $id }}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-    <div class="relative w-full h-full max-w-2xl md:h-auto">
+<div id="{{ $id }}" tabindex="-1" aria-hidden="true" class="modal modal-hide">
+    <div class="modal-container">
         <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="modal-content">
             @if($heading)
                 <!-- Modal header -->
-                <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <div class="modal-header">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                         {{ $heading }}
                     </h3>
@@ -27,14 +27,14 @@
 
             @if($body)
                 <!-- Modal body -->
-                <div class="p-6 space-y-6">
+                <div class="modal-body">
                     {{ $body }}
                 </div>
             @endif
 
             @if($footer)
                 <!-- Modal footer -->
-                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <div class="modal-footer">
                     {{ $footer }}
                 </div>
             @endif
