@@ -1,6 +1,6 @@
 @php
     if(!$attributes->has('type')) {
-        $attributes->setAttributes(['type'=>'text']);
+        $attributes = $attributes->merge(['type'=>'text']);
     }
 
     $class = $attributes->get('class','');
